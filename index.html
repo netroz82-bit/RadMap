@@ -11,7 +11,7 @@ html,body{height:100%;margin:0;font-family:Tahoma,system-ui,sans-serif;backgroun
 .pn{position:absolute;z-index:1000;background:var(--pn);border-radius:14px;box-shadow:0 3px 14px #0007}
 #top{top:8px;left:8px;right:8px;padding:8px;display:flex;gap:6px}
 .in{width:100%;background:var(--bg);border:1px solid #3a434d;color:var(--tx);border-radius:10px;padding:10px;font:inherit}
-#q{flex:1;min-width:0}
+.qw{position:relative;flex:1;min-width:0}#q{padding-left:40px}#qx{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:26px;height:26px;line-height:25px;text-align:center;border-radius:50%;background:#4a5561;color:#fff;font-size:18px;display:none}
 button{font:inherit;border:0;border-radius:10px;padding:10px 12px;background:#37414c;color:var(--tx)}
 button.p{background:var(--ac);color:#241a00;font-weight:700}
 #res{top:62px;left:8px;right:8px;max-height:45%;overflow:auto;display:none}
@@ -42,19 +42,20 @@ textarea.in{height:110px;direction:ltr;font-size:12px;margin-top:6px}
 #dlg{position:fixed;inset:0;z-index:3500;background:#000a;display:none;align-items:center;justify-content:center;padding:20px}
 #dlg .bx{background:var(--pn);border-radius:16px;padding:18px;max-width:380px;line-height:1.9}
 #dlg .r{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-body.nv #top{left:auto;width:auto;padding:6px}body.nv #q{display:none}
-body.nv #top.open{left:8px}body.nv #top.open #q{display:block}
+body.nv #top{left:auto;width:auto;padding:6px}body.nv .qw{display:none}
+body.nv #top.open{left:8px}body.nv #top.open .qw{display:block}
 #map.rot{inset:-70%;transition:transform .4s linear}
+#lm{left:66px;bottom:172px;padding:8px;display:none;gap:6px;flex-wrap:wrap;max-width:calc(100% - 80px)}
 </style></head><body>
 <div id="map"></div>
-<div id="top" class="pn"><input id="q" class="in" placeholder="جستجوی مقصد…" enterkeyhint="search"><button id="go">🔍</button></div>
+<div id="top" class="pn"><div class="qw"><input id="q" class="in" placeholder="جستجوی مقصد…" enterkeyhint="search"><span id="qx">×</span></div><button id="go">🔍</button></div>
 <div id="res" class="pn"></div>
 <div id="nav" class="pn"><div id="ni">⬆</div><div><div id="nt"></div><div id="nd"></div></div></div>
-<div id="card" class="pn"><div id="ci"></div><div class="r"><button class="p" id="st">▶ شروع مسیریابی</button><button id="po"></button><button id="ft">🗺</button><button id="cx">✕</button></div></div>
+<div id="card" class="pn"><div id="ci"></div><div class="r"><button class="p" id="st">▶ شروع مسیریابی</button><button id="po"></button><button id="so">🔍 جستجوی مبدا</button><button id="ft">🗺</button><button id="cx">✕</button></div></div>
 <div id="bar" class="pn"><span id="bi"></span><button id="sp" style="background:var(--rd)">پایان</button></div>
-<div id="fab"><button id="bs">⚙</button><button id="bt">🚦</button><button id="bl">📍</button></div>
-<div id="toast"></div>
-<div id="dlg"><div class="bx"><div id="dt"></div><div class="r"><button class="p" id="dy"></button><button id="dn"></button></div></div></div>
+<div id="fab"><button id="bk">🛰</button><button id="bs">⚙</button><button id="bt">🚦</button><button id="bl">📍</button></div>
+<div id="lm" class="pn"></div><div id="toast"></div>
+<div id="dlg"><div class="bx"><div id="dt"></div><div id="dc"></div><div class="r"><button class="p" id="dy"></button><button id="dn"></button></div></div></div>
 <div id="set">
 <div class="hd"><div><h2>RadMap</h2><small>تنظیمات</small></div><button id="sx" class="p">بستن</button></div>
 <div class="cd"><h4>صدا</h4>
@@ -62,11 +63,6 @@ body.nv #top.open{left:8px}body.nv #top.open #q{display:block}
 <label><input id="t" type="checkbox"> اگر کلیپی ضبط نشده بود، صدای سیستم بخواند</label></div>
 <div class="cd"><h4>صداهای راهنما</h4><small>🎙 ضبط (برای توقف دوباره لمس کنید) · 📁 انتخاب فایل · ▶ پخش · 🗑 حذف</small><div id="clips"></div><input type="file" id="fi" accept="audio/*" hidden></div>
 <div class="cd"><h4>ترافیک زنده</h4><input id="tu" class="in" dir="ltr"><small>آدرس لایه ترافیک (Tile URL). اگر لایه نمایش داده نشد، آدرس دیگری بگذارید.</small></div>
-<div class="cd"><h4>طرح ترافیک و آلودگی هوا</h4>
-<label><input id="zs" type="checkbox"> نمایش محدوده‌ها روی نقشه</label>
-<textarea id="zj" class="in" placeholder='GeoJSON با ویژگی type برابر traffic یا air'></textarea>
-<div class="row" style="border:0"><button id="za" class="p">اعمال محدوده‌ها</button></div>
-<small>ساعت فعال بودن: طرح ترافیک شنبه تا چهارشنبه ۶:۳۰ تا ۱۸. طرح آلودگی هوا شنبه تا چهارشنبه ۶:۳۰ تا ۱۸ و پنجشنبه ۶:۳۰ تا ۱۳. جمعه فعال نیست؛ تعطیلات رسمی تشخیص داده نمی‌شود.</small></div>
 <div class="ft">طراحی شده توسط استاد جلالی</div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -74,7 +70,7 @@ const $=s=>document.querySelector(s),LS=localStorage;
 const SL=[['depart','حرکت کنید'],['left','به چپ بپیچید'],['right','به راست بپیچید'],['slight_left','کمی به چپ بپیچید'],['slight_right','کمی به راست بپیچید'],['sharp_left','تند به چپ بپیچید'],['sharp_right','تند به راست بپیچید'],['straight','مستقیم بروید'],['uturn','دور بزنید'],['roundabout','وارد میدان شوید'],['arrive','به مقصد رسیدید'],['reroute','مسیر دوباره محاسبه شد'],['d1000','یک کیلومتر دیگر'],['d500','پانصد متر دیگر'],['d200','دویست متر دیگر']];
 const ICO={depart:'⬆',left:'⬅',right:'➡',slight_left:'↖',slight_right:'↗',sharp_left:'↙',sharp_right:'↘',straight:'⬆',uturn:'↩',roundabout:'⟳',arrive:'🏁'};
 let S={},C={};try{S=JSON.parse(LS.vn_s||'{}');C=JSON.parse(LS.vn_c||'{}')}catch(e){}
-delete S.key;S={vol:1,tts:1,zs:1,tu:'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',zj:'',...S};S.mute=0;
+delete S.key;S={vol:1,tts:1,tu:'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',...S};S.mute=0;delete S.zs;delete S.zj;
 const save=()=>{try{LS.vn_s=JSON.stringify(S);LS.vn_c=JSON.stringify(C);return 1}catch(e){toast('حافظه پر است؛ کلیپ کوتاه‌تری بگذارید');return 0}};
 const fa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 const fD=d=>d<1000?fa(Math.round(d/10)*10)+' متر':fa((d/1000).toFixed(1).replace('.','٫'))+' کیلومتر';
@@ -84,8 +80,14 @@ function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';cl
 
 /* ---------- نقشه ---------- */
 const map=L.map('map',{zoomControl:false,attributionControl:false}).setView([35.6892,51.389],12);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
-const lines=L.layerGroup().addTo(map),pins=L.layerGroup().addTo(map),zl=L.layerGroup().addTo(map);let Z=[],tl=null,rot=0,hist=[],noAsk=0,asking=0;
+const BL={normal:['https://tile.openstreetmap.org/{z}/{x}/{y}.png',19],sat:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',18],topo:['https://tile.opentopomap.org/{z}/{x}/{y}.png',17],dark:['https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',19]};
+const LAB='https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
+let base=null,lab=null;
+function setBase(k){S.bl=k;save();if(base)map.removeLayer(base);if(lab){map.removeLayer(lab);lab=null}
+ base=L.tileLayer(BL[k][0],{maxZoom:19,maxNativeZoom:BL[k][1],subdomains:'abc',zIndex:1}).addTo(map);
+ if(k=='sat')lab=L.tileLayer(LAB,{maxZoom:19,maxNativeZoom:18,zIndex:3}).addTo(map);
+ document.querySelectorAll('#lm button').forEach(b=>b.className=b.dataset.l==k?'p':'')}
+const lines=L.layerGroup().addTo(map),pins=L.layerGroup().addTo(map),zl=L.layerGroup().addTo(map);let Z=[],tl=null,rot=0,hist=[],noAsk=0,asking=0,okZ={},sMode=0,zEx=0;
 const ic=h=>L.divIcon({html:h,className:'em',iconSize:[30,30],iconAnchor:[15,28]});
 let me=null,pos=null,heading=0,org=null,dst=null,route=null,nav=0,cur=1,spoken={},off=0,lastRR=0,rr=0,wl=null,follow=1,pickOrg=0;
 map.on('dragstart',()=>follow=0);
@@ -108,7 +110,10 @@ function onPos(p){
 /* ---------- مسیریابی ---------- */
 const J=async(u,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms||10000);try{const r=await fetch(u,{signal:c.signal});if(r.status==403||r.status>=429)throw 0;return await r.json()}finally{clearTimeout(t)}};
 const RS=['https://router.project-osrm.org/route/v1/driving/','https://routing.openstreetmap.de/routed-car/route/v1/driving/'];
-const mk=rt=>{const st=[];rt.legs.forEach(l=>l.steps.forEach(s=>st.push({t:s.maneuver.type,m:s.maneuver.modifier||'',n:s.name||'',x:s.maneuver.exit,d:s.distance,p:[s.maneuver.location[1],s.maneuver.location[0]]})));return{pts:rt.geometry.coordinates.map(c=>[c[1],c[0]]),st,d:rt.distance,T:rt.duration}};
+const mk=rt=>{const st=[],L=rt.legs.length;
+ rt.legs.forEach((l,i)=>l.steps.forEach(s=>{let t=s.maneuver.type;if((i<L-1&&t=='arrive')||(i>0&&t=='depart'))t='continue';
+  st.push({t,m:s.maneuver.modifier||'',n:s.name||'',x:s.maneuver.exit,d:s.distance,p:[s.maneuver.location[1],s.maneuver.location[0]]})}));
+ return{pts:rt.geometry.coordinates.map(c=>[c[1],c[0]]),st,d:rt.distance,T:rt.duration}};
 async function getRoutes(a,b){
  let got=0;
  for(const base of RS){try{
@@ -130,6 +135,10 @@ async function plan(nf){
  $('#ci').textContent=fD(r.d)+' • '+fT(r.T);$('#st').style.display=''}
 $('#po').onclick=()=>{if(org){org=null;pinsDraw();plan()}else{pickOrg=1;toast('مبدا را روی نقشه لمس کنید')}};
 $('#cx').onclick=()=>stopNav();$('#ft').onclick=fit;
+const qs=()=>$('#qx').style.display=$('#q').value?'block':'none';
+$('#q').oninput=qs;
+$('#qx').onclick=()=>{$('#q').value='';qs();$('#res').style.display='none';$('#q').focus()};
+$('#so').onclick=()=>{sMode=1;$('#q').placeholder='جستجوی مبدا…';$('#q').value='';qs();$('#q').focus();toast('نام مبدا را جستجو کنید')};
 
 /* ---------- جستجو ---------- */
 const vars=v=>{const w=v.replace(/\u200c/g,' ').split(/\s+/),j=w.join(' '),o=[j,j.replace(/([^\sآ])آ/g,'$1 آ')];
@@ -148,7 +157,7 @@ async function search(v){
  r.innerHTML='';
  if(!it.length)r.innerHTML='<div>'+(ok?'نتیجه‌ای پیدا نشد؛ نام را کامل‌تر یا همراه نام شهر بنویسید.':'اتصال به سرور جستجو برقرار نشد؛ اینترنت را بررسی کنید.')+'</div>';
  it.forEach(x=>{const d=document.createElement('div');d.innerHTML='<b></b><small></small>';d.firstChild.textContent=x.t;d.lastChild.textContent=x.a;
-  d.onclick=()=>{r.style.display='none';$('#top').classList.remove('open');$('#q').value=x.t;dst=x.p;pinsDraw();if(nav){newRoute();return}map.setView(x.p,17);plan(1)};r.appendChild(d)})}
+  d.onclick=()=>{r.style.display='none';$('#top').classList.remove('open');$('#q').value=x.t;qs();if(sMode){sMode=0;$('#q').placeholder='جستجوی مقصد…';org=x.p;pinsDraw();plan();return}dst=x.p;pinsDraw();if(nav){newRoute();return}map.setView(x.p,17);plan(1)};r.appendChild(d)})}
 $('#go').onclick=()=>{const t=$('#top');if(nav&&!t.classList.contains('open')){t.classList.add('open');$('#q').focus();return}search($('#q').value.trim())};
 $('#q').onkeydown=e=>{if(e.key=='Enter'||e.keyCode==13)$('#go').click()};
 
@@ -163,17 +172,77 @@ async function play(ks){for(const k of ks){const u=C[k];
 const ZN={traffic:'طرح ترافیک',air:'طرح آلودگی هوا'};
 const inP=(p,r)=>{let c=0;for(let i=0,j=r.length-1;i<r.length;j=i++){if((r[i][0]>p[0])!=(r[j][0]>p[0])&&p[1]<(r[j][1]-r[i][1])*(p[0]-r[i][0])/(r[j][0]-r[i][0])+r[i][1])c=!c}return c};
 function act(ty){const d=new Date(),w=d.getDay(),m=d.getHours()*60+d.getMinutes();if(w==5)return 0;if(w==4)return ty=='air'&&m>=390&&m<780;return m>=390&&m<1080}
-const zoneHit=pts=>{for(const z of Z){if(!act(z.ty))continue;for(let i=0;i<pts.length;i+=2)if(inP(pts[i],z.r))return z.ty}return 0};
-function loadZones(){zl.clearLayers();Z=[];let g;try{g=JSON.parse(S.zj||'null')}catch(e){toast('GeoJSON نامعتبر است');return}
- if(!g)return;
- (g.features||[g]).forEach(f=>{const ge=f.geometry||f,ty=f.properties&&f.properties.type=='air'?'air':'traffic',ps=ge.type=='Polygon'?[ge.coordinates]:ge.type=='MultiPolygon'?ge.coordinates:[];
-  ps.forEach(q=>{const r=q[0].map(c=>[c[1],c[0]]);Z.push({ty,r});if(S.zs)L.polygon(r,{color:ty=='air'?'#8e44ff':'#ff8a00',weight:2,fillOpacity:.12,interactive:false}).addTo(zl)})})}
+function dSeg(p,a,b){const k=Math.cos(p[0]*Math.PI/180),px=p[1]*k,py=p[0],ax=a[1]*k,ay=a[0],dx=b[1]*k-ax,dy=b[0]-ay,l=dx*dx+dy*dy;
+ let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=Math.max(0,Math.min(1,t));return Math.hypot(px-ax-t*dx,py-ay-t*dy)*111320}
+const nearE=(p,r,m)=>{for(let i=0;i<r.length-1;i++)if(dSeg(p,r[i],r[i+1])<m)return 1;return 0};
+const inZ=(p,z)=>p[0]>z.bb[0]-.0007&&p[0]<z.bb[2]+.0007&&p[1]>z.bb[1]-.0007&&p[1]<z.bb[3]+.0007&&(inP(p,z.r)||nearE(p,z.r,30));
+const hitSet=pts=>{const h={};for(const z of Z){if(!z.th||!act(z.ty)||h[z.ty])continue;for(let i=0;i<pts.length;i++)if(inZ(pts[i],z)){h[z.ty]=1;break}}return h};
+const ZG={"features":[{"properties":{"type":"air","name":"محدوده کنترل آلودگی هوای تهران (حلقه دوم)"},"geometry":{"coordinates":[[[51.389,35.759],[51.405,35.758],[51.425,35.757],[51.448,35.754],[51.475,35.75],[51.5,35.745],[51.505,35.73],[51.505,35.71],[51.503,35.69],[51.501,35.67],[51.498,35.646],[51.475,35.644],[51.45,35.644],[51.425,35.644],[51.402,35.644],[51.382,35.646],[51.383,35.665],[51.384,35.685],[51.385,35.705],[51.386,35.725],[51.388,35.745],[51.389,35.759]]]}},{"properties":{"type":"traffic","name":"محدوده طرح ترافیک تهران (حلقه اول)"},"geometry":{"coordinates":[[[51.389,35.724],[51.402,35.724],[51.417,35.724],[51.432,35.724],[51.443,35.723],[51.445,35.714],[51.447,35.703],[51.45,35.692],[51.451,35.681],[51.449,35.669],[51.443,35.662],[51.428,35.662],[51.41,35.662],[51.392,35.662],[51.389,35.67],[51.389,35.685],[51.389,35.7],[51.389,35.714],[51.389,35.724]]]}}]};
+function rings(ws){
+ const out=[],k=p=>p[0]+','+p[1];ws=ws.filter(w=>w.length>1);
+ while(ws.length){let r=ws.shift(),go=1;
+  while(go&&k(r[0])!=k(r[r.length-1])){go=0;
+   for(let i=0;i<ws.length;i++){const w=ws[i];
+    if(k(w[0])==k(r[r.length-1])){r=r.concat(w.slice(1))}
+    else if(k(w[w.length-1])==k(r[r.length-1])){r=r.concat(w.slice(0,-1).reverse())}
+    else if(k(w[w.length-1])==k(r[0])){r=w.slice(0,-1).concat(r)}
+    else if(k(w[0])==k(r[0])){r=w.slice(1).reverse().concat(r)}
+    else continue;
+    ws.splice(i,1);go=1;break}}
+  if(r.length>3)out.push(r)}
+ return out}
+function setZones(list,ex){zl.clearLayers();Z=[];zEx=ex;
+ list.forEach(z=>{const th=z.r[0][0]>35.4&&z.r[0][0]<36&&z.r[0][1]>51&&z.r[0][1]<51.8;const la=z.r.map(p=>p[0]),lo=z.r.map(p=>p[1]);Z.push({ty:z.ty,r:z.r,th,bb:[Math.min(...la),Math.min(...lo),Math.max(...la),Math.max(...lo)]});
+  L.polygon(z.r,{color:z.ty=='air'?'#f59e0b':'#dc2626',weight:2,fillOpacity:z.ty=='air'?.12:.2,interactive:false}).addTo(zl)})}
+function loadZones(){
+ const b=ZG.features.map(f=>({ty:f.properties.type,r:f.geometry.coordinates[0].map(c=>[c[1],c[0]])}));
+ let c=null;try{c=JSON.parse(LS.vn_z||'null')}catch(e){}
+ const ok=c&&c.z&&c.z.length;setZones(ok?c.z:b,!!ok);
+ if(!ok||Date.now()-c.t>6048e5)fetchZones()}
+async function osmRel(id){
+ const j=await J('https://api.openstreetmap.org/api/0.6/relation/'+id+'/full.json',30000),N={},W={};
+ j.elements.forEach(e=>{if(e.type=='node')N[e.id]=[e.lat,e.lon];if(e.type=='way')W[e.id]=e.nodes});
+ const rel=j.elements.find(e=>e.type=='relation');
+ return rings(rel.members.filter(m=>m.type=='way'&&m.role=='outer'&&W[m.ref]).map(m=>W[m.ref].map(n=>N[n]).filter(Boolean)))}
+function zDone(z){const was=zEx;try{LS.vn_z=JSON.stringify({t:Date.now(),z})}catch(e){}setZones(z,true);if(!was)toast('محدوده دقیق طرح‌ها از OpenStreetMap دریافت شد')}
+async function fetchZones(){
+ let z=[];
+ try{for(const [id,ty] of [[6947428,'traffic'],[6950174,'air']])(await osmRel(id)).forEach(r=>z.push({ty,r}))}catch(e){z=[]}
+ if(z.some(x=>x.ty=='traffic')&&z.some(x=>x.ty=='air'))return zDone(z);
+ const q='[out:json][timeout:60];area(3600304938)->.ir;(relation(id:6947428,6950174);relation["boundary"~"^(limited_traffic_zone|low_emission_zone)$"](area.ir););out geom;';
+ for(const u of ['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://overpass.private.coffee/api/interpreter']){try{
+  const j=await J(u+'?data='+encodeURIComponent(q),40000);z=[];
+  (j.elements||[]).forEach(e=>{if(e.type!='relation')return;const ty=e.tags&&e.tags.boundary=='low_emission_zone'?'air':'traffic';
+   rings((e.members||[]).filter(m=>m.type=='way'&&m.role=='outer'&&m.geometry).map(m=>m.geometry.map(p=>[p.lat,p.lon]))).forEach(r=>z.push({ty,r}))});
+  if(z.length)return zDone(z)
+ }catch(e){}}
+ if(!zEx)toast('دریافت محدوده دقیق طرح‌ها ممکن نشد؛ مرز تقریبی نمایش داده می‌شود')}
 const ask=(t,y,n)=>new Promise(r=>{$('#dt').textContent=t;$('#dy').textContent=y;$('#dn').textContent=n;$('#dlg').style.display='flex';
  $('#dy').onclick=()=>{$('#dlg').style.display='none';r(1)};$('#dn').onclick=()=>{$('#dlg').style.display='none';r(0)}});
-async function vet(r,a,b){const z=zoneHit(r.pts);if(!z)return r;
- if(await ask('این مسیر از '+ZN[z]+' عبور می‌کند و طرح در این ساعت فعال است. از همین مسیر عبور می‌کنید؟','بله، عبور می‌کنم','نه، مسیر دیگر'))return r;
- const ok=(await getRoutes(a,b)).filter(x=>!zoneHit(x.pts));
- if(ok.length)return ok[0];toast('مسیر جایگزین خارج از طرح پیدا نشد؛ مسیر اصلی نمایش داده شد');return r}
+const askZ=ty=>new Promise(r=>{
+ $('#dt').textContent='مسیر از '+ty.map(t=>ZN[t]).join(' و ')+' عبور می‌کند و طرح در این ساعت فعال است'+(zEx?'':' (مرز طرح تقریبی است)')+'. رفتن روی خیابان‌های مرزی هم عبور از طرح حساب می‌شود. عبور از هر طرح را که می‌خواهید فعال کنید؛ برای طرحی که فعال نکنید، مسیری بیرون از آن محدوده انتخاب می‌شود.';
+ $('#dc').innerHTML=ty.map(t=>'<label><input type="checkbox" data-t="'+t+'"> عبور از '+ZN[t]+' مجاز باشد</label>').join('');
+ $('#dn').style.display='none';$('#dy').textContent='تایید و مسیریابی';$('#dlg').style.display='flex';
+ $('#dy').onclick=()=>{const o={};$('#dc').querySelectorAll('input').forEach(i=>o[i.dataset.t]=i.checked);$('#dlg').style.display='none';$('#dc').innerHTML='';$('#dn').style.display='';r(o)}});
+async function viaRoutes(a,b,pts){const out=[];
+ await Promise.all(pts.map(async w=>{for(const base of RS){try{
+  const j=await J(base+a[1]+','+a[0]+';'+w[1]+','+w[0]+';'+b[1]+','+b[0]+'?overview=full&geometries=geojson&steps=true',12000);
+  if(j.routes&&j.routes[0]){out.push(mk(j.routes[0]));break}}catch(e){}}}));
+ return out}
+async function vet(r,a,b){
+ const k=String(b);if(okZ.k!=k)okZ={k,a:{}};
+ const h=hitSet(r.pts),need=['traffic','air'].filter(t=>h[t]&&okZ.a[t]===undefined);
+ if(need.length)Object.assign(okZ.a,await askZ(need));
+ const ok=x=>Object.keys(hitSet(x.pts)).every(t=>okZ.a[t]);
+ if(ok(r))return r;
+ toast('در حال جستجوی مسیر بیرون از محدوده طرح…');
+ const g=(await getRoutes(a,b).catch(()=>[])).filter(ok)[0];if(g)return g;
+ const dn=Object.keys(okZ.a).filter(t=>!okZ.a[t]),zs=Z.filter(z=>z.th&&dn.includes(z.ty));
+ if(zs.length){
+  const bb=[Math.min(...zs.map(z=>z.bb[0]))-.01,Math.min(...zs.map(z=>z.bb[1]))-.012,Math.max(...zs.map(z=>z.bb[2]))+.01,Math.max(...zs.map(z=>z.bb[3]))+.012],mx=(bb[1]+bb[3])/2,my=(bb[0]+bb[2])/2;
+  for(const set of [[[bb[0],bb[1]],[bb[0],bb[3]],[bb[2],bb[1]],[bb[2],bb[3]]],[[bb[0],mx],[bb[2],mx],[my,bb[1]],[my,bb[3]]]]){
+   const c=(await viaRoutes(a,b,set)).filter(ok).sort((x,y)=>x.T-y.T)[0];if(c)return c}}
+ toast('مسیری بیرون از محدوده‌های غیرمجاز پیدا نشد؛ مسیر اصلی نمایش داده شد');return r}
 async function newRoute(){rr=1;try{const rs=await getRoutes(pos,dst);route=await vet(rs[0],pos,dst);draw();cur=1;spoken={};off=0;skip();say(['reroute'])}catch(e){toast('مسیر جدید پیدا نشد')}rr=0}
 async function slow(av){asking=1;noAsk=Date.now()+6e5;
  try{const a=(await getRoutes(pos,dst))[1];
@@ -192,7 +261,7 @@ $('#st').onclick=()=>{
  map.setView(pos,17);say(['depart']);tick({coords:{}})};
 $('#sp').onclick=()=>stopNav();
 function stopNav(){
- pid++;nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();
+ pid++;okZ={};sMode=0;$('#q').placeholder='جستجوی مقصد…';$('#q').value='';qs();nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();
  ['#nav','#bar','#card'].forEach(s=>$(s).style.display='none');document.body.classList.remove('nv');$('#top').classList.remove('open');$('#map').classList.remove('rot');$('#map').style.transform='';rot=0;map.invalidateSize();map.dragging.enable();$('#top').style.display='flex';
  try{wl&&wl.release()}catch(e){}wl=null;try{speechSynthesis.cancel()}catch(e){}}
 async function tick(p){
@@ -221,15 +290,13 @@ async function tick(p){
 
 /* ---------- دکمه‌ها و تنظیمات ---------- */
 $('#bl').onclick=()=>{follow=1;if(pos)map.setView(pos,Math.max(map.getZoom(),16))};
-$('#bt').onclick=()=>{if(tl){map.removeLayer(tl);tl=null;$('#bt').style.background='';return}tl=L.tileLayer(S.tu,{maxZoom:19,opacity:.9}).addTo(map);$('#bt').style.background='var(--ac)'};
+$('#bt').onclick=()=>{if(tl){map.removeLayer(tl);tl=null;$('#bt').style.background='';return}tl=L.tileLayer(S.tu,{maxZoom:19,opacity:.9,zIndex:5}).addTo(map);$('#bt').style.background='var(--ac)'};
 setInterval(()=>{if(tl)tl.setUrl(S.tu+(S.tu.includes('?')?'&':'?')+'_='+(Date.now()/12e4|0))},12e4);
-$('#bs').onclick=()=>{$('#v').value=S.vol;$('#t').checked=!!S.tts;$('#tu').value=S.tu;$('#zs').checked=!!S.zs;$('#zj').value=S.zj;renderClips();$('#set').style.display='block'};
+$('#bs').onclick=()=>{$('#v').value=S.vol;$('#t').checked=!!S.tts;$('#tu').value=S.tu;renderClips();$('#set').style.display='block'};
 $('#sx').onclick=()=>$('#set').style.display='none';
 $('#v').oninput=e=>{S.vol=+e.target.value;save()};
 $('#t').onchange=e=>{S.tts=e.target.checked?1:0;save()};
 $('#tu').onchange=e=>{S.tu=e.target.value.trim();save()};
-$('#zs').onchange=e=>{S.zs=e.target.checked?1:0;save();loadZones()};
-$('#za').onclick=()=>{S.zj=$('#zj').value.trim();save();loadZones();toast('محدوده‌ها اعمال شد')};
 function renderClips(){
  const b=$('#clips');b.innerHTML='';
  SL.forEach(([k,l])=>{if(k=='depart'||k=='d1000'){const h=document.createElement('div');h.className='sh';h.textContent=k=='depart'?'جهت‌ها':'فاصله‌ها';b.appendChild(h)}
@@ -257,5 +324,8 @@ $('#fi').onchange=e=>{
  const f=e.target.files[0];e.target.value='';if(!f)return;
  if(f.size>400000){toast('فایل بزرگ است (حداکثر ۴۰۰ کیلوبایت)');return}
  const fr=new FileReader();fr.onload=()=>{C[fk]=fr.result;save();renderClips()};fr.readAsDataURL(f)};
-loadZones();
+$('#lm').innerHTML=[['normal','نقشه'],['sat','ماهواره'],['topo','پستی‌بلندی'],['dark','شب']].map(a=>'<button data-l="'+a[0]+'">'+a[1]+'</button>').join('');
+$('#bk').onclick=()=>{const m=$('#lm');m.style.display=m.style.display=='flex'?'none':'flex'};
+$('#lm').onclick=e=>{const k=e.target.dataset.l;if(k){setBase(k);$('#lm').style.display='none'}};
+setBase(BL[S.bl]?S.bl:'normal');loadZones();
 </script></body></html>
