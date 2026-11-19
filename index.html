@@ -68,6 +68,10 @@ details summary{color:var(--mu);font-size:13px;margin-top:10px;cursor:pointer}
 .row button{min-width:38px}
 .zd{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:6px}
 #dc label{align-items:flex-start}
+#spd{position:absolute;z-index:1000;left:12px;bottom:10px;display:none;line-height:1;text-align:center}
+body.nv #spd{display:block}body.nv #fab{bottom:90px}body.nv #bar{left:108px}
+#spd b{display:block;min-width:86px;font:700 46px/1 'Courier New',monospace;color:#39ff14;letter-spacing:2px;text-shadow:0 0 3px #000,0 0 8px #000,0 0 14px #39ff1488}
+#spd small{display:block;font:700 11px/1.3 'Courier New',monospace;color:#39ff14;text-shadow:0 0 3px #000,0 0 6px #000}
 </style></head><body>
 <div id="map"></div>
 <div id="top" class="pn"><div class="qw"><input id="q" class="in" placeholder="جستجوی مقصد…" enterkeyhint="search"><span id="qx">×</span></div><button id="go">🔍</button></div>
@@ -76,7 +80,7 @@ details summary{color:var(--mu);font-size:13px;margin-top:10px;cursor:pointer}
 <div id="card" class="pn"><div id="ci"></div><div class="r"><button class="p" id="st">▶ شروع مسیریابی</button><button id="po"></button><button id="so">🔍 جستجوی مبدا</button><button id="ft">🗺</button><button id="cx">✕</button></div></div>
 <div id="bar" class="pn"><span id="bi"></span><button id="sp" style="background:var(--rd)">پایان</button></div>
 <div id="fab"><button id="bk">🛰</button><button id="bs">⚙</button><button id="bt">🚦</button><button id="bl">📍</button></div>
-<div id="cp"><b>N</b><i></i></div><div id="lm" class="pn"></div><div id="toast"></div>
+<div id="cp"><b>N</b><i></i></div><div id="lm" class="pn"></div><div id="spd"><b>0</b><small>km/h</small></div><div id="toast"></div>
 <div id="dlg"><div class="bx"><div id="dt"></div><div id="dc"></div><div class="r"><button class="p" id="dy"></button><button id="dn"></button></div></div></div>
 <div id="set">
 <div class="hd"><button id="sx" class="p">→ بازگشت</button><div class="tt"><h2>RadMap</h2><small>تنظیمات</small></div></div>
@@ -114,7 +118,7 @@ const dist=(a,b)=>{const k=Math.PI/180,x=(b[1]-a[1])*k*Math.cos((a[0]+b[0])*k/2)
 function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',3500)}
 
 /* ---------- نقشه ---------- */
-const map=L.map('map',{zoomControl:false,attributionControl:false,maxZoom:19}).setView([35.6892,51.389],12);
+const map=L.map('map',{zoomControl:false,attributionControl:false,maxZoom:19,zoomSnap:0}).setView([35.6892,51.389],12);
 const BL={normal:['https://tile.openstreetmap.org/{z}/{x}/{y}.png',19],sat:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',18],topo:['https://tile.opentopomap.org/{z}/{x}/{y}.png',17]};
 const LAB='https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
 let base=null,lab=null;
@@ -132,7 +136,7 @@ const pinsDraw=()=>{pins.clearLayers();const o=org||(nav?null:pos);o&&L.marker(o
 function draw(){lines.clearLayers();L.polyline(route.pts,{color:'#0a2a66',weight:10,opacity:.85}).addTo(lines);L.polyline(route.pts,{color:'#2f7bff',weight:6}).addTo(lines)}
 
 /* ---------- لمس: نگه‌داشتن برای علامت‌گذاری، کشیدن، چرخاندن با دو انگشت ---------- */
-map.dragging.disable();
+map.dragging.disable();map.touchZoom.disable();
 const mel=$('#map'),P={};let lp=0,drag=0,rg=null;
 function setRot(v,sm){rot=v;const a=((rot%360)+360)%360,on=nav||(a>.5&&a<359.5);if(!on)rot=0;
  mel.style.transition=sm?'transform .4s linear':'none';
@@ -140,32 +144,40 @@ function setRot(v,sm){rot=v;const a=((rot%360)+360)%360,on=nav||(a>.5&&a<359.5);
  if(!!nav!=mel.classList.contains('tilt')){mel.classList.toggle('tilt',!!nav);ch=1}
  if(ch)map.invalidateSize();
  mel.style.transform=on?(nav?'perspective(1400px) rotateX(35deg) ':'')+'rotate('+rot+'deg)':'';
- mel.style.setProperty('--r',rot+'deg');$('#cp').style.transform='rotate('+rot+'deg)';map.options.touchZoom=on?'center':true}
-const toLL=(cx,cy)=>{const r=mel.getBoundingClientRect(),vx=cx-(r.left+r.width/2),vy=cy-(r.top+r.height/2),t=rot*Math.PI/180,c=Math.cos(t),n=Math.sin(t);
- return map.containerPointToLatLng([mel.offsetWidth/2+vx*c+vy*n,mel.offsetHeight/2-vx*n+vy*c])};
+ mel.style.setProperty('--r',rot+'deg');$('#cp').style.transform='rotate('+rot+'deg)'}
+const toCP=(cx,cy)=>{const r=mel.getBoundingClientRect(),vx=cx-(r.left+r.width/2),vy=cy-(r.top+r.height/2),t=rot*Math.PI/180,c=Math.cos(t),n=Math.sin(t);
+ return L.point(mel.offsetWidth/2+vx*c+vy*n,mel.offsetHeight/2-vx*n+vy*c)};
+const toLL=(cx,cy)=>map.containerPointToLatLng(toCP(cx,cy));
 function markPt(ll){if(nav)return;const p=[ll.lat,ll.lng];if(pickOrg){pickOrg=0;org=p}else dst=p;pinsDraw();plan();try{navigator.vibrate(40)}catch(e){}}
-mel.addEventListener('pointerdown',e=>{if(nav)return;
- P[e.pointerId]={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};clearTimeout(lp);
- if(Object.keys(P).length==1){drag=0;lp=setTimeout(()=>{if(!drag&&Object.keys(P).length==1)markPt(toLL(e.clientX,e.clientY))},1000)}
- else{drag=1;const [a,b]=Object.values(P);rg=Math.atan2(b.y-a.y,b.x-a.x)}});
-mel.addEventListener('pointermove',e=>{const q=P[e.pointerId];if(!q)return;const n=Object.keys(P).length;
- if(n==1){const dx=e.clientX-q.x,dy=e.clientY-q.y;
-  if(!drag&&Math.hypot(e.clientX-q.x0,e.clientY-q.y0)>10){drag=1;clearTimeout(lp)}
-  if(drag){const t=rot*Math.PI/180,c=Math.cos(t),s=Math.sin(t);map.panBy([-(dx*c+dy*s),-(-dx*s+dy*c)],{animate:false});follow=0}
-  q.x=e.clientX;q.y=e.clientY}
- else if(n==2){q.x=e.clientX;q.y=e.clientY;const [a,b]=Object.values(P),g=Math.atan2(b.y-a.y,b.x-a.x);let d=(g-rg)*180/Math.PI;d=((d+540)%360)-180;rg=g;setRot(rot+d,0);follow=0}});
-const pup=e=>{delete P[e.pointerId];clearTimeout(lp);if(Object.keys(P).length<2)rg=null;if(!Object.keys(P).length)drag=0};
+let G=null,moved=0;
+const two=()=>{const [a,b]=Object.values(P);return{d:Math.hypot(b.x-a.x,b.y-a.y)||1,g:Math.atan2(b.y-a.y,b.x-a.x),x:(a.x+b.x)/2,y:(a.y+b.y)/2}};
+mel.addEventListener('pointerdown',e=>{moved=1;
+ P[e.pointerId]={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};clearTimeout(lp);const n=Object.keys(P).length;
+ if(n==1){drag=0;lp=setTimeout(()=>{if(!drag&&Object.keys(P).length==1&&!nav)markPt(toLL(e.clientX,e.clientY))},1000)}
+ else if(n==2){drag=1;const t=two();G={d:t.d,pg:t.g,z:map.getZoom(),r:rot,tw:0,on:0,ll:nav?null:toLL(t.x,t.y)}}});
+mel.addEventListener('pointermove',e=>{const q=P[e.pointerId];if(!q)return;
+ const n=Object.keys(P).length,dx=e.clientX-q.x,dy=e.clientY-q.y;q.x=e.clientX;q.y=e.clientY;
+ if(n==1){if(!drag&&Math.hypot(q.x-q.x0,q.y-q.y0)>10){drag=1;clearTimeout(lp)}
+  if(drag&&!nav){const t=rot*Math.PI/180,c=Math.cos(t),s=Math.sin(t);map.panBy([-(dx*c+dy*s),-(-dx*s+dy*c)],{animate:false});follow=0}}
+ else if(n==2&&G){const t=two(),nz=Math.max(2,Math.min(19,G.z+Math.log2(t.d/G.d)));
+  if(nav){map.setZoom(nz,{animate:false});return}
+  let da=(t.g-G.pg)*180/Math.PI;da=((da+540)%360)-180;G.tw+=da;G.pg=t.g;if(!G.on&&Math.abs(G.tw)>8)G.on=1;
+  map.setZoom(nz,{animate:false});if(G.on)setRot(G.r+G.tw,0);
+  const cp=toCP(t.x,t.y),lp2=map.latLngToContainerPoint(G.ll);map.panBy([lp2.x-cp.x,lp2.y-cp.y],{animate:false});follow=0}});
+const pup=e=>{delete P[e.pointerId];clearTimeout(lp);const n=Object.keys(P).length;if(n<2)G=null;if(!n)drag=0};
 mel.addEventListener('pointerup',pup);mel.addEventListener('pointercancel',pup);
 $('#cp').onclick=()=>{if(nav){nUp=!nUp;toast(nUp?'شمال به بالا':'جهت حرکت به بالا');if(nUp)setRot(0,1)}else setRot(0,1)};
 /* ---------- GPS ---------- */
+let gpsErr=0,lastGN=0;
+function gpsNote(f){if((f||nav)&&Date.now()-lastGN>2e4){lastGN=Date.now();toast('GPS در دسترس نیست؛ موقعیت دستگاه را روشن کنید')}}
 let gw=null;
 function startGps(){if(!navigator.geolocation)return;if(gw!=null)navigator.geolocation.clearWatch(gw);
- gw=navigator.geolocation.watchPosition(onPos,()=>{toast('GPS در دسترس نیست؛ موقعیت را روشن کنید');setTimeout(startGps,5000)},{enableHighAccuracy:true,maximumAge:1000,timeout:20000})}
+ gw=navigator.geolocation.watchPosition(onPos,()=>{gpsErr=1;gpsNote();setTimeout(startGps,5000)},{enableHighAccuracy:true,maximumAge:1000,timeout:20000})}
 startGps();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!pos)startGps()});
 function onPos(p){
- pos=[p.coords.latitude,p.coords.longitude];
+ gpsErr=0;pos=[p.coords.latitude,p.coords.longitude];
  if(p.coords.heading!=null&&!isNaN(p.coords.heading)&&p.coords.speed>1)heading=p.coords.heading;
- if(!me){me=L.marker(pos,{icon:L.divIcon({html:'<div id="ar">▲</div>',className:'me',iconSize:[30,30]})}).addTo(map);map.setView(pos,16);if(dst&&!org&&!route&&!nav)plan()}else me.setLatLng(pos);
+ if(!me){me=L.marker(pos,{icon:L.divIcon({html:'<div id="ar">▲</div>',className:'me',iconSize:[30,30]})}).addTo(map);if(!moved)map.setView(pos,16);if(dst&&!org&&!route&&!nav)plan()}else me.setLatLng(pos);
  const a=$('#ar');if(a)a.style.transform='rotate('+heading+'deg)';
  if(nav&&route){hist.push([Date.now(),pos]);tick(p)}}
 
@@ -190,13 +202,13 @@ async function plan(nf){
  if(!dst)return;const my=++pid,a=org||pos;route=null;lines.clearLayers();pinsDraw();
  $('#card').style.display='block';$('#st').style.display='none';
  $('#po').textContent=org?'مبدا: موقعیت من':'مبدا: روی نقشه';
- if(!a){$('#ci').textContent='مقصد انتخاب شد. GPS هنوز موقعیت را پیدا نکرده؛ برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید.';return}
+ if(!a){if(gpsErr)gpsNote(1);$('#ci').textContent='مقصد انتخاب شد. GPS هنوز موقعیت را پیدا نکرده؛ برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید.';return}
  $('#ci').textContent='مقصد انتخاب شد. در حال مسیریابی…';
  let r;try{r=await vet(await getRoute(a,dst),a,dst)}catch(e){if(my==pid)$('#ci').textContent=e=='NR'?'بین این دو نقطه مسیری پیدا نشد؛ نقطه دیگری را لمس کنید.':'اتصال به سرور مسیریابی برقرار نشد؛ اینترنت را بررسی کنید.';return}
  if(my!=pid)return;route=r;draw();if(!nf)fit();follow=0;
  $('#ci').textContent=fD(r.d)+' • '+fT(r.T);$('#st').style.display=''}
 $('#po').onclick=()=>{if(org){org=null;pinsDraw();plan()}else{pickOrg=1;toast('برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید')}};
-$('#cx').onclick=()=>stopNav();$('#ft').onclick=fit;
+$('#cx').onclick=()=>stopNav('مسیریابی لغو شد');$('#ft').onclick=fit;
 const qs=()=>$('#qx').style.display=$('#q').value?'block':'none';
 $('#q').oninput=qs;
 $('#qx').onclick=()=>{$('#q').value='';qs();$('#res').style.display='none';$('#q').focus()};
@@ -316,16 +328,16 @@ const skip=()=>{while(cur<route.st.length-1&&/^(new name|continue|exit roundabou
 function dirKey(s){if(s.t=='arrive')return'arrive';if(/^(roundabout|rotary)/.test(s.t))return'roundabout';
  return({uturn:'uturn','sharp left':'sharp_left','sharp right':'sharp_right','slight left':'slight_left','slight right':'slight_right',left:'left',right:'right'})[s.m]||'straight'}
 $('#st').onclick=()=>{
- if(!route)return;if(!pos){toast('منتظر پیدا شدن موقعیت GPS باشید');return}
+ if(!route)return;if(!pos){if(gpsErr)gpsNote(1);else toast('منتظر پیدا شدن موقعیت GPS باشید');return}
  nav=1;cur=1;spoken={};off=0;follow=1;skip();
  ['#card','#res'].forEach(s=>$(s).style.display='none');document.body.classList.add('nv');$('#top').classList.remove('open');setRot(rot,1);hist=[];noAsk=Date.now()+12e4;pinsDraw();if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase('normal',1);$('#nav').style.display=$('#bar').style.display='flex';
  try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>wl=w).catch(()=>{})}catch(e){}
  map.setView(pos,17);say(['depart']);tick({coords:{}})};
-$('#sp').onclick=()=>stopNav();
-function stopNav(){
+$('#sp').onclick=()=>stopNav('مسیریابی لغو شد');
+function stopNav(msg){
  pid++;okZ={};sMode=0;$('#q').placeholder='جستجوی مقصد…';$('#q').value='';qs();nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();
  ['#nav','#bar','#card'].forEach(s=>$(s).style.display='none');document.body.classList.remove('nv');$('#top').classList.remove('open');setRot(0,0);if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase(S.bl,1);$('#top').style.display='flex';
- try{wl&&wl.release()}catch(e){}wl=null;try{speechSynthesis.cancel()}catch(e){}}
+ try{wl&&wl.release()}catch(e){}wl=null;try{speechSynthesis.cancel()}catch(e){}$('#res').style.display='none';if(msg)toast(msg)}
 async function tick(p){
  const st=route.st;if(cur>=st.length)return;
  let s=st[cur],d=dist(pos,s.p);s.min=Math.min(s.min??1e9,d);
@@ -335,7 +347,7 @@ async function tick(p){
  if(off>=3&&!rr&&Date.now()-lastRR>15000){lastRR=Date.now();newRoute();return}
  const arr=s.t=='arrive';
  if(d<(arr?40:30)||(!arr&&s.min<80&&d>s.min+25)){
-  if(arr){nav=0;say(['arrive']);toast('به مقصد رسیدید 🏁');setTimeout(stopNav,5000);return}
+  if(arr){nav=0;say(['arrive']);toast('به مقصد رسیدید 🏁');setTimeout(()=>stopNav('مسیریابی به پایان رسید'),5000);return}
   cur++;skip();spoken={};s=st[cur];d=dist(pos,s.p)}
  const K=dirKey(s);
  if(K!='arrive'){
@@ -346,8 +358,9 @@ async function tick(p){
  const now=Date.now();while(hist.length&&now-hist[0][0]>18e4)hist.shift();
  const win=hist.length?now-hist[0][0]:0;let f=1,av=0;
  if(hist.length>3&&win>6e4){let m=0;for(let i=1;i<hist.length;i++)m+=dist(hist[i-1][1],hist[i][1]);av=m/(win/1e3);f=1+(Math.min(3,Math.max(1,route.d/route.T/Math.max(av,.5)))-1)*Math.min(1,win/18e4)}
- const sp=p.coords.speed>0?Math.round(p.coords.speed*3.6):0,eta=rem*route.T/route.d*f;
- $('#bi').innerHTML='<b>'+fD(rem)+' • '+fT(eta)+'</b><small>رسیدن '+new Date(now+eta*1e3).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+' • '+fa(sp)+' km/h'+(f>1.5?' • ⚠ ترافیک سنگین':f>1.2?' • ترافیک':'')+'</small>';
+ let v=p.coords.speed;if(v==null&&hist.length>1){const a=hist[hist.length-2],b=hist[hist.length-1];v=dist(a[1],b[1])/Math.max(1,(b[0]-a[0])/1e3)}
+ const sp=v>.8?Math.round(v*3.6):0,eta=rem*route.T/route.d*f;$('#spd b').textContent=sp;
+ $('#bi').innerHTML='<b>'+fD(rem)+' • '+fT(eta)+'</b><small>رسیدن '+new Date(now+eta*1e3).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+(f>1.5?' • ⚠ ترافیک سنگین':f>1.2?' • ترافیک':'')+'</small>';
  if(f>2&&win>15e4&&rem>3000&&!asking&&now>noAsk)slow(av)}
 
 /* ---------- دکمه‌ها و تنظیمات ---------- */
@@ -364,7 +377,7 @@ $('#fm').onchange=async e=>{const fs=[...e.target.files];e.target.value='';const
  for(const f of fs){const k=slotOf(f.name);if(!k||f.size>1e7){bad.push(f.name);continue}
   C[k]=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f.type?f:new Blob([f],{type:'audio/mpeg'}))});ok.push(k)}
  save();renderClips();toast(ok.length+' صدا جایگذاری شد'+(bad.length?'؛ نام نامشناخته یا فایل بزرگ: '+bad.slice(0,4).join('، '):''))};
-$('#bl').onclick=()=>{follow=1;if(pos)map.setView(pos,Math.max(map.getZoom(),16))};
+$('#bl').onclick=()=>{follow=1;if(pos)map.setView(pos,Math.max(map.getZoom(),16));else if(gpsErr)gpsNote(1);else toast('در حال یافتن موقعیت…')};
 $('#bt').onclick=()=>{if(tl){map.removeLayer(tl);tl=null;$('#bt').style.background='';return}tl=L.tileLayer(S.tu,{maxZoom:19,opacity:.9,zIndex:5}).addTo(map);$('#bt').style.background='var(--ac)'};
 setInterval(()=>{if(tl)tl.setUrl(S.tu+(S.tu.includes('?')?'&':'?')+'_='+(Date.now()/12e4|0))},12e4);
 $('#bs').onclick=()=>{$('#v').value=S.vol;$('#t').checked=!!S.tts;$('#tu').value=S.tu;renderClips();$('#set').style.display='block'};
