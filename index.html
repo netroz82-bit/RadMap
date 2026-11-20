@@ -44,7 +44,7 @@ textarea.in{height:110px;direction:ltr;font-size:12px;margin-top:6px}
 #dlg .r{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 body.nv #top{left:auto;width:auto;padding:6px}body.nv .qw{display:none}
 body.nv #top.open{left:8px}body.nv #top.open .qw{display:block}
-#map.rot{inset:-70%}#map.rot.tilt{inset:-105%}
+#map.rot{inset:-70%}#map.rot.tilt{inset:-125%}
 #lm{left:66px;bottom:172px;padding:8px;display:none;gap:6px;flex-wrap:wrap;max-width:calc(100% - 80px)}
 #bi b{font-size:16px}#bi small{display:block;color:var(--mu);margin-top:2px}
 #cp{position:absolute;z-index:1000;top:70px;right:10px;width:44px;height:44px;border-radius:50%;background:#000;border:2px solid #fff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;cursor:pointer}
@@ -72,6 +72,23 @@ details summary{color:var(--mu);font-size:13px;margin-top:10px;cursor:pointer}
 body.nv #spd{display:block}body.nv #fab{bottom:90px}body.nv #bar{left:108px}
 #spd b{display:block;min-width:86px;font:700 46px/1 'Courier New',monospace;color:#39ff14;letter-spacing:2px;text-shadow:0 0 3px #000,0 0 8px #000,0 0 14px #39ff1488}
 #spd small{display:block;font:700 11px/1.3 'Courier New',monospace;color:#39ff14;text-shadow:0 0 3px #000,0 0 6px #000}
+#nav{background:none;border:0;box-shadow:none;padding:4px 8px}
+#ni{font-size:50px;color:#ffd23f;text-shadow:-1.5px -1.5px 0 #000,1.5px -1.5px 0 #000,-1.5px 1.5px 0 #000,1.5px 1.5px 0 #000,0 0 8px #000}
+#nt{font-size:21px;font-weight:800;color:#ffd23f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px #000}
+#nd{font-size:16px;font-weight:700;color:#7dffb3;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px #000}
+#cs{position:absolute;z-index:1000;left:108px;right:8px;bottom:78px;text-align:center;display:none;font:800 18px Tahoma,sans-serif;color:#fff;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px #000}
+body.nv #cs{display:block}
+#ad{position:absolute;z-index:1000;top:64px;left:12px;right:66px;display:none;font:700 14px Tahoma,sans-serif;color:#fff;line-height:1.7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 6px #000}
+#gl{position:absolute;z-index:1000;top:122px;right:25px;width:14px;height:14px;border-radius:50%;background:#e5484d;border:2px solid #fff;box-shadow:0 0 6px #000a}
+#gl.ok{background:#2ecc71;box-shadow:0 0 8px #2ecc71}
+#zb{position:absolute;z-index:1000;right:10px;top:50%;margin-top:-50px;display:flex;flex-direction:column;gap:8px}
+#zb button{width:42px;height:42px;border-radius:50%;padding:0;font-size:22px;background:rgba(28,33,39,.55);backdrop-filter:blur(3px)}
+.flag{font-size:36px;line-height:1;filter:drop-shadow(0 1px 1px #000) drop-shadow(0 0 2px #fff)}
+.cd>details>summary{display:flex;justify-content:space-between;align-items:center;list-style:none;cursor:pointer;color:var(--tx);font-size:inherit;margin:0}
+.cd>details>summary::-webkit-details-marker{display:none}
+.cd>details>summary h4{margin:0}.cd>details>summary::after{content:'▾';margin-right:8px;color:var(--mu)}.cd>details[open]>summary::after{content:'▴'}
+body.nv .leaflet-marker-icon.me{transition:transform .9s linear}
+body.nv #ar{font-size:0;width:34px;height:56px;margin:-13px 0 0 -2px;text-shadow:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 64'%3E%3Crect x='3' y='12' width='5' height='13' rx='2' fill='%23111'/%3E%3Crect x='32' y='12' width='5' height='13' rx='2' fill='%23111'/%3E%3Crect x='3' y='40' width='5' height='13' rx='2' fill='%23111'/%3E%3Crect x='32' y='40' width='5' height='13' rx='2' fill='%23111'/%3E%3Crect x='6' y='3' width='28' height='58' rx='11' fill='%232f7bff' stroke='%23fff' stroke-width='2.5'/%3E%3Crect x='10' y='15' width='20' height='11' rx='4' fill='%23123a7a'/%3E%3Crect x='11' y='27' width='18' height='10' rx='3' fill='%235b9bff'/%3E%3Crect x='10' y='38' width='20' height='9' rx='4' fill='%23123a7a'/%3E%3Ccircle cx='12' cy='7' r='2.6' fill='%23ffe066'/%3E%3Ccircle cx='28' cy='7' r='2.6' fill='%23ffe066'/%3E%3C/svg%3E") center/contain no-repeat}
 </style></head><body>
 <div id="map"></div>
 <div id="top" class="pn"><div class="qw"><input id="q" class="in" placeholder="جستجوی مقصد…" enterkeyhint="search"><span id="qx">×</span></div><button id="go">🔍</button></div>
@@ -80,22 +97,24 @@ body.nv #spd{display:block}body.nv #fab{bottom:90px}body.nv #bar{left:108px}
 <div id="card" class="pn"><div id="ci"></div><div class="r"><button class="p" id="st">▶ شروع مسیریابی</button><button id="po"></button><button id="so">🔍 جستجوی مبدا</button><button id="ft">🗺</button><button id="cx">✕</button></div></div>
 <div id="bar" class="pn"><span id="bi"></span><button id="sp" style="background:var(--rd)">پایان</button></div>
 <div id="fab"><button id="bk">🛰</button><button id="bs">⚙</button><button id="bt">🚦</button><button id="bl">📍</button></div>
-<div id="cp"><b>N</b><i></i></div><div id="lm" class="pn"></div><div id="spd"><b>0</b><small>km/h</small></div><div id="toast"></div>
+<div id="ad"></div><div id="cs"></div><div id="gl"></div><div id="zb"><button id="zi">＋</button><button id="zo">－</button></div><div id="cp"><b>N</b><i></i></div><div id="lm" class="pn"></div><div id="spd"><b>0</b><small>km/h</small></div><div id="toast"></div>
 <div id="dlg"><div class="bx"><div id="dt"></div><div id="dc"></div><div class="r"><button class="p" id="dy"></button><button id="dn"></button></div></div></div>
 <div id="set">
 <div class="hd"><button id="sx" class="p">→ بازگشت</button><div class="tt"><h2>RadMap</h2><small>تنظیمات</small></div></div>
 <div class="cd"><div class="sec"><h4>🔊 صدا</h4></div>
-<label class="ln"><span>بلندی صدا</span><input id="v" type="range" min=".1" max="1" step=".1"></label>
 <label class="ln"><span>اگر صدایی ضبط نشده بود، صدای سیستم بخواند</span><input id="t" type="checkbox"></label></div>
 <div class="cd"><div class="sec"><h4>📂 بارگذاری صدا از حافظه</h4></div>
 <button class="p wide" id="fb">انتخاب فایل‌های صوتی</button><input type="file" id="fm" accept="audio/*" multiple hidden>
 <details><summary>نام فایل چگونه تشخیص داده می‌شود؟</summary><small>چند فایل را با هم انتخاب کنید؛ جایگاه هر صدا از روی نام فایل تشخیص داده می‌شود. مثلاً: راست، چپ، کمی به راست، تند به چپ، مستقیم، دور بزنید، میدان، حرکت، مقصد، مسیر جدید، ۲۰۰، ۵۰۰، ۱۰۰۰ (یا right، slight left، u-turn، 500 و ...). فایل‌هایی که نامشان شناخته نشود نادیده گرفته می‌شوند. صداها داخل برنامه ذخیره می‌شوند.</small></details></div>
-<div class="cd"><div class="sec"><h4>🎙 صداهای راهنما</h4><span class="chip" id="cnt"></span></div>
+<div class="cd"><details><summary><h4>🎙 صداهای راهنما</h4><span class="chip" id="cnt"></span></summary>
 <div class="bar"><i id="pgb"></i></div>
 <small>🎙 ضبط (برای توقف دوباره لمس کنید) · 📁 انتخاب فایل · ▶ پخش · 🗑 حذف</small>
 <div id="clips"></div><input type="file" id="fi" accept="audio/*" hidden>
-<button class="wide" id="fx">🗑 حذف همه صداها</button></div>
-<div class="cd"><div class="sec"><h4>🚦 ترافیک زنده</h4></div><input id="tu" class="in" dir="ltr"><small>آدرس لایه ترافیک (Tile URL). اگر لایه نمایش داده نشد، آدرس دیگری بگذارید.</small></div>
+<button class="wide" id="fx">🗑 حذف همه صداها</button></details></div>
+<div class="cd"><div class="sec"><h4>🚧 طرح ترافیک و آلودگی هوا</h4></div>
+<label class="ln"><span><i class="zd" style="background:#dc2626"></i>نمایش محدوده طرح ترافیک روی نقشه</span><input id="zt" type="checkbox"></label>
+<label class="ln"><span><i class="zd" style="background:#f59e0b"></i>نمایش محدوده طرح آلودگی هوا روی نقشه</span><input id="za" type="checkbox"></label>
+<small>هنگام مسیریابی، طرحی که در آن ساعت فعال باشد خودکار نمایش داده می‌شود و در مسیر لحاظ می‌شود. طرح غیرفعال فقط وقتی دیده می‌شود که اینجا روشن باشد.</small></div>
 <div class="ft">RadMap<br>طراحی شده توسط استاد جلالی</div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -105,7 +124,7 @@ const ICO={depart:'⬆',left:'⬅',right:'➡',slight_left:'↖',slight_right:'�
 let S={},C={};try{S=JSON.parse(LS.vn_s||'{}');C=JSON.parse(LS.vn_c||'{}')}catch(e){}
 delete S.key;S={vol:1,tts:1,tu:'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',...S};S.mute=0;delete S.zs;delete S.zj;
 const save=()=>{try{LS.vn_s=JSON.stringify(S)}catch(e){}idbPut();return 1};
-const idb=new Promise(r=>{try{const q=indexedDB.open('radmap',1);q.onupgradeneeded=()=>q.result.createObjectStore('k');q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)}catch(e){r(null)}});
+const idb=new Promise(r=>{try{const q=indexedDB.open('radmap',2);q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains('k'))d.createObjectStore('k');if(!d.objectStoreNames.contains('t'))d.createObjectStore('t')};q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)}catch(e){r(null)}});
 let it0=0;
 const idbPut=()=>{clearTimeout(it0);it0=setTimeout(async()=>{const d=await idb;
  if(!d){try{LS.vn_c=JSON.stringify(C)}catch(e){toast('حافظه پر است؛ تعداد یا حجم صداها را کم کنید')}return}
@@ -127,60 +146,80 @@ function setBase(k,tmp){
  base=L.tileLayer(BL[k][0],{maxZoom:19,maxNativeZoom:BL[k][1],subdomains:'abc',zIndex:1}).addTo(map);
  if(k=='sat')lab=L.tileLayer(LAB,{maxZoom:19,maxNativeZoom:18,zIndex:3}).addTo(map);
  document.querySelectorAll('#lm button').forEach(b=>b.className=b.dataset.l==k?'p':'')}
-const lines=L.layerGroup().addTo(map),pins=L.layerGroup().addTo(map),zl=L.layerGroup().addTo(map);let Z=[],tl=null,rot=0,hist=[],noAsk=0,asking=0,okZ={},sMode=0,zEx=0,nUp=0;
+const lines=L.layerGroup().addTo(map),pins=L.layerGroup().addTo(map),zl=L.layerGroup().addTo(map);let Z=[],tl=null,rot=0,hist=[],noAsk=0,asking=0,okZ={},sMode=0,zEx=0,nUp=0,pitch=0,sn=null,ri=0,rpl=null,lastFix=0,sdist=0;
 const pinI=(c,ch,t)=>L.divIcon({html:'<div class="pin '+c+'"><b>'+ch+'</b></div><div class="pt">'+t+'</div>',className:'em',iconSize:[30,30],iconAnchor:[15,38]});
 let me=null,pos=null,heading=0,org=null,dst=null,route=null,nav=0,cur=1,spoken={},off=0,lastRR=0,rr=0,wl=null,follow=1,pickOrg=0;
 map.on('dragstart',()=>follow=0);
 map.on('click',()=>{$('#res').style.display='none';$('#lm').style.display='none'});
-const pinsDraw=()=>{pins.clearLayers();const o=org||(nav?null:pos);o&&L.marker(o,{icon:pinI('g','A','مبدا')}).addTo(pins);dst&&L.marker(dst,{icon:pinI('r','B','مقصد')}).addTo(pins)};
-function draw(){lines.clearLayers();L.polyline(route.pts,{color:'#0a2a66',weight:10,opacity:.85}).addTo(lines);L.polyline(route.pts,{color:'#2f7bff',weight:6}).addTo(lines)}
+const flagI=L.divIcon({html:'<div class="flag">🏁</div><div class="pt">مقصد</div>',className:'em',iconSize:[30,30],iconAnchor:[8,36]});
+const pinsDraw=()=>{pins.clearLayers();const o=org||(nav?null:pos);o&&L.marker(o,{icon:pinI('g','A','مبدا')}).addTo(pins);dst&&L.marker(dst,{icon:flagI}).addTo(pins)};
+function draw(){lines.clearLayers();rpl=[L.polyline(route.pts,{color:'#0a2a66',weight:10,opacity:.85}).addTo(lines),L.polyline(route.pts,{color:'#2f7bff',weight:6}).addTo(lines)];ri=0;drawZones()}
 
 /* ---------- لمس: نگه‌داشتن برای علامت‌گذاری، کشیدن، چرخاندن با دو انگشت ---------- */
 map.dragging.disable();map.touchZoom.disable();
 const mel=$('#map'),P={};let lp=0,drag=0,rg=null;
-function setRot(v,sm){rot=v;const a=((rot%360)+360)%360,on=nav||(a>.5&&a<359.5);if(!on)rot=0;
+function setRot(v,sm){rot=v;const a=((rot%360)+360)%360,ro=a>.5&&a<359.5,td=nav?35:pitch,on=nav||ro||td>.5;if(!ro&&!nav)rot=0;
  mel.style.transition=sm?'transform .4s linear':'none';
  let ch=0;if(on!=mel.classList.contains('rot')){mel.classList.toggle('rot',on);ch=1}
- if(!!nav!=mel.classList.contains('tilt')){mel.classList.toggle('tilt',!!nav);ch=1}
+ const tt=td>.5;if(tt!=mel.classList.contains('tilt')){mel.classList.toggle('tilt',tt);ch=1}
  if(ch)map.invalidateSize();
- mel.style.transform=on?(nav?'perspective(1400px) rotateX(35deg) ':'')+'rotate('+rot+'deg)':'';
+ mel.style.transform=on?(tt?'perspective(1400px) rotateX('+td+'deg) ':'')+'rotate('+rot+'deg)':'';
  mel.style.setProperty('--r',rot+'deg');$('#cp').style.transform='rotate('+rot+'deg)'}
-const toCP=(cx,cy)=>{const r=mel.getBoundingClientRect(),vx=cx-(r.left+r.width/2),vy=cy-(r.top+r.height/2),t=rot*Math.PI/180,c=Math.cos(t),n=Math.sin(t);
- return L.point(mel.offsetWidth/2+vx*c+vy*n,mel.offsetHeight/2-vx*n+vy*c)};
+const toCP=(cx,cy)=>{const tr=getComputedStyle(mel).transform,m=tr&&tr!='none'?new DOMMatrix(tr):new DOMMatrix(),
+ ox=mel.offsetLeft+mel.offsetWidth/2,oy=mel.offsetTop+mel.offsetHeight/2,x=cx-ox,y=cy-oy,
+ a=m.m11,b=m.m21,c=m.m41,d=m.m12,e=m.m22,f=m.m42,g=m.m14,h=m.m24,i=m.m44,
+ det=a*(e*i-f*h)-b*(d*i-f*g)+c*(d*h-e*g),
+ v0=((e*i-f*h)*x-(b*i-c*h)*y+(b*f-c*e))/det,v1=(-(d*i-f*g)*x+(a*i-c*g)*y-(a*f-c*d))/det,v2=((d*h-e*g)*x-(a*h-b*g)*y+(a*e-b*d))/det;
+ return L.point(mel.offsetWidth/2+v0/v2,mel.offsetHeight/2+v1/v2)};
 const toLL=(cx,cy)=>map.containerPointToLatLng(toCP(cx,cy));
-function markPt(ll){if(nav)return;const p=[ll.lat,ll.lng];if(pickOrg){pickOrg=0;org=p}else dst=p;pinsDraw();plan();try{navigator.vibrate(40)}catch(e){}}
-let G=null,moved=0;
+function flat(){if(pitch>.5){pitch=0;setRot(rot,1)}}
+let G=null,moved=0,panned=0,adn=0;
+const adHide=()=>{adn++;$('#ad').style.display='none'};
+async function showAddr(ll){const e=$('#ad'),my=++adn,cf=fa(ll.lat.toFixed(5))+'، '+fa(ll.lng.toFixed(5));e.textContent='در حال یافتن آدرس…';e.style.display='block';
+ try{const j=await J('https://nominatim.openstreetmap.org/reverse?format=jsonv2&accept-language=fa&zoom=18&lat='+ll.lat+'&lon='+ll.lng,8000),a=j.address||{};
+  const t=[a.road||a.pedestrian||a.footway,a.neighbourhood||a.suburb||a.quarter,a.city||a.town||a.village||a.county].filter(Boolean).join('، ')||j.display_name;
+  if(my==adn)e.textContent=t||cf}catch(x){if(my==adn)e.textContent=cf}}
+function markPt(ll){if(nav)return;flat();const p=[ll.lat,ll.lng];if(pickOrg){pickOrg=0;org=p}else dst=p;pinsDraw();showAddr(ll);plan();try{navigator.vibrate(40)}catch(e){}}
 const two=()=>{const [a,b]=Object.values(P);return{d:Math.hypot(b.x-a.x,b.y-a.y)||1,g:Math.atan2(b.y-a.y,b.x-a.x),x:(a.x+b.x)/2,y:(a.y+b.y)/2}};
-mel.addEventListener('pointerdown',e=>{moved=1;
+mel.addEventListener('pointerdown',e=>{moved=1;adHide();
  P[e.pointerId]={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY};clearTimeout(lp);const n=Object.keys(P).length;
  if(n==1){drag=0;lp=setTimeout(()=>{if(!drag&&Object.keys(P).length==1&&!nav)markPt(toLL(e.clientX,e.clientY))},1000)}
- else if(n==2){drag=1;const t=two();G={d:t.d,pg:t.g,z:map.getZoom(),r:rot,tw:0,on:0,ll:nav?null:toLL(t.x,t.y)}}});
+ else if(n==2){drag=1;const t=two();map._stop();map._moveStart(true,false);G={d:t.d,pg:t.g,z:map.getZoom(),r:rot,tw:0,on:0,m:0,x0:t.x,y0:t.y,p0:pitch,ll:(nav||pitch>.5)?null:toLL(t.x,t.y)}}});
 mel.addEventListener('pointermove',e=>{const q=P[e.pointerId];if(!q)return;
  const n=Object.keys(P).length,dx=e.clientX-q.x,dy=e.clientY-q.y;q.x=e.clientX;q.y=e.clientY;
  if(n==1){if(!drag&&Math.hypot(q.x-q.x0,q.y-q.y0)>10){drag=1;clearTimeout(lp)}
-  if(drag&&!nav){const t=rot*Math.PI/180,c=Math.cos(t),s=Math.sin(t);map.panBy([-(dx*c+dy*s),-(-dx*s+dy*c)],{animate:false});follow=0}}
- else if(n==2&&G){const t=two(),nz=Math.max(2,Math.min(19,G.z+Math.log2(t.d/G.d)));
-  if(nav){map.setZoom(nz,{animate:false});return}
-  let da=(t.g-G.pg)*180/Math.PI;da=((da+540)%360)-180;G.tw+=da;G.pg=t.g;if(!G.on&&Math.abs(G.tw)>8)G.on=1;
-  map.setZoom(nz,{animate:false});if(G.on)setRot(G.r+G.tw,0);
-  const cp=toCP(t.x,t.y),lp2=map.latLngToContainerPoint(G.ll);map.panBy([lp2.x-cp.x,lp2.y-cp.y],{animate:false});follow=0}});
-const pup=e=>{delete P[e.pointerId];clearTimeout(lp);const n=Object.keys(P).length;if(n<2)G=null;if(!n)drag=0};
+  if(drag){map._rawPanBy(toCP(q.x-dx,q.y-dy).subtract(toCP(q.x,q.y)).round());map.fire('move');panned=1;if(nav&&follow)toast('برای دنبال کردن مسیر دوباره، 📍 را لمس کنید');follow=0}}
+ else if(n==2&&G){const t=two(),lz=Math.log2(t.d/G.d),nz=Math.max(2,Math.min(19,G.z+lz));
+  let da=(t.g-G.pg)*180/Math.PI;da=((da+540)%360)-180;G.tw+=da;G.pg=t.g;
+  if(!G.m){const mx=t.x-G.x0,my=t.y-G.y0;
+   if(Math.abs(my)>16&&Math.abs(my)>2*Math.abs(mx)&&Math.abs(lz)<.12&&Math.abs(G.tw)<10&&!nav)G.m=1;
+   else if(Math.abs(lz)>.1||Math.abs(G.tw)>14||Math.hypot(mx,my)>40)G.m=2;else return}
+  if(G.m==1){pitch=Math.max(0,Math.min(40,G.p0-(t.y-G.y0)*.22));setRot(rot,0);return}
+  if(!G.on&&Math.abs(G.tw)>14&&!nav)G.on=1;
+  if(G.on){pitch=0;setRot(G.r+G.tw,0)}
+  if(nav||pitch>.5||!G.ll){map._move(map.getCenter(),nz,{pinch:true,round:false});return}
+  const cp=toCP(t.x,t.y),h=map.getSize().divideBy(2);
+  map._move(map.unproject(map.project(G.ll,nz).subtract(cp.subtract(h)),nz),nz,{pinch:true,round:false});follow=0}});
+const pup=e=>{delete P[e.pointerId];clearTimeout(lp);const n=Object.keys(P).length;
+ if(n<2&&G){map._moveEnd(true);if(G.on&&!nav){const a=((rot%360)+360)%360;if(a<12||a>348)setRot(0,1)}G=null}
+ if(!n){if(panned){panned=0;map.fire('moveend')}drag=0}};
 mel.addEventListener('pointerup',pup);mel.addEventListener('pointercancel',pup);
-$('#cp').onclick=()=>{if(nav){nUp=!nUp;toast(nUp?'شمال به بالا':'جهت حرکت به بالا');if(nUp)setRot(0,1)}else setRot(0,1)};
+$('#cp').onclick=()=>{pitch=0;if(nav){nUp=!nUp;toast(nUp?'شمال به بالا':'جهت حرکت به بالا');if(nUp)setRot(0,1)}else setRot(0,1)};
 /* ---------- GPS ---------- */
 let gpsErr=0,lastGN=0;
 function gpsNote(f){if((f||nav)&&Date.now()-lastGN>2e4){lastGN=Date.now();toast('GPS در دسترس نیست؛ موقعیت دستگاه را روشن کنید')}}
 let gw=null;
 function startGps(){if(!navigator.geolocation)return;if(gw!=null)navigator.geolocation.clearWatch(gw);
- gw=navigator.geolocation.watchPosition(onPos,()=>{gpsErr=1;gpsNote();setTimeout(startGps,5000)},{enableHighAccuracy:true,maximumAge:1000,timeout:20000})}
+ gw=navigator.geolocation.watchPosition(onPos,()=>{gpsErr=1;$('#gl').className='';gpsNote();setTimeout(startGps,5000)},{enableHighAccuracy:true,maximumAge:1000,timeout:20000})}
 startGps();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!pos)startGps()});
 function onPos(p){
- gpsErr=0;pos=[p.coords.latitude,p.coords.longitude];
+ gpsErr=0;lastFix=Date.now();$('#gl').className='ok';pos=[p.coords.latitude,p.coords.longitude];
  if(p.coords.heading!=null&&!isNaN(p.coords.heading)&&p.coords.speed>1)heading=p.coords.heading;
  if(!me){me=L.marker(pos,{icon:L.divIcon({html:'<div id="ar">▲</div>',className:'me',iconSize:[30,30]})}).addTo(map);if(!moved)map.setView(pos,16);if(dst&&!org&&!route&&!nav)plan()}else me.setLatLng(pos);
  const a=$('#ar');if(a)a.style.transform='rotate('+heading+'deg)';
  if(nav&&route){hist.push([Date.now(),pos]);tick(p)}}
 
+setInterval(()=>{if(Date.now()-lastFix>12e3)$('#gl').className=''},3e3);
 /* ---------- مسیریابی ---------- */
 const J=async(u,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms||10000);try{const r=await fetch(u,{signal:c.signal});if(r.status==403||r.status>=429)throw 0;return await r.json()}finally{clearTimeout(t)}};
 const RS=['https://router.project-osrm.org/route/v1/driving/','https://routing.openstreetmap.de/routed-car/route/v1/driving/'];
@@ -196,17 +235,17 @@ async function getRoutes(a,b){
  }catch(e){}}
  throw got?'NR':'NET'}
 const getRoute=async(a,b)=>(await getRoutes(a,b))[0];
-const fit=()=>{if(!route)return;if(!nav)setRot(0,0);map.fitBounds(L.polyline(route.pts).getBounds(),{padding:[60,60]})};
+const fit=()=>{if(!route)return;if(!nav){pitch=0;setRot(0,0)}map.fitBounds(L.polyline(route.pts).getBounds(),{padding:[60,60]})};
 let pid=0;
 async function plan(nf){
- if(!dst)return;const my=++pid,a=org||pos;route=null;lines.clearLayers();pinsDraw();
+ if(!dst)return;const my=++pid,a=org||pos;route=null;lines.clearLayers();pinsDraw();drawZones();
  $('#card').style.display='block';$('#st').style.display='none';
  $('#po').textContent=org?'مبدا: موقعیت من':'مبدا: روی نقشه';
  if(!a){if(gpsErr)gpsNote(1);$('#ci').textContent='مقصد انتخاب شد. GPS هنوز موقعیت را پیدا نکرده؛ برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید.';return}
  $('#ci').textContent='مقصد انتخاب شد. در حال مسیریابی…';
  let r;try{r=await vet(await getRoute(a,dst),a,dst)}catch(e){if(my==pid)$('#ci').textContent=e=='NR'?'بین این دو نقطه مسیری پیدا نشد؛ نقطه دیگری را لمس کنید.':'اتصال به سرور مسیریابی برقرار نشد؛ اینترنت را بررسی کنید.';return}
  if(my!=pid)return;route=r;draw();if(!nf)fit();follow=0;
- $('#ci').textContent=fD(r.d)+' • '+fT(r.T);$('#st').style.display=''}
+ $('#ci').textContent=fD(r.d)+'، '+fT(r.T);$('#st').style.display=''}
 $('#po').onclick=()=>{if(org){org=null;pinsDraw();plan()}else{pickOrg=1;toast('برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید')}};
 $('#cx').onclick=()=>stopNav('مسیریابی لغو شد');$('#ft').onclick=fit;
 const qs=()=>$('#qx').style.display=$('#q').value?'block':'none';
@@ -218,7 +257,7 @@ $('#so').onclick=()=>{sMode=1;$('#q').placeholder='جستجوی مبدا…';$('
 const vars=v=>{const w=v.replace(/\u200c/g,' ').split(/\s+/),j=w.join(' '),o=[j,j.replace(/([^\sآ])آ/g,'$1 آ')];
  for(let i=0;i<w.length-1;i++)o.push(w.slice(0,i).concat(w[i]+w[i+1],w.slice(i+2)).join(' '));return[...new Set(o)].slice(0,4)};
 async function search(v){
- v=v.replace(/ي/g,'ی').replace(/ك/g,'ک').trim();if(v.length<2)return;
+ flat();adHide();v=v.replace(/ي/g,'ی').replace(/ك/g,'ک').trim();if(v.length<2)return;
  const r=$('#res'),c=map.getCenter(),b=map.getBounds(),vb=[b.getWest(),b.getNorth(),b.getEast(),b.getSouth()];let it=[],ok=0;
  r.style.display='block';r.innerHTML='<div>در حال جستجو…</div>';
  const add=x=>{if(!it.some(y=>Math.abs(y.p[0]-x.p[0])<1e-4&&Math.abs(y.p[1]-x.p[1])<1e-4))it.push(x)};
@@ -239,8 +278,8 @@ $('#q').onkeydown=e=>{if(e.key=='Enter'||e.keyCode==13)$('#go').click()};
 let ch=Promise.resolve();
 const say=ks=>{if(S.mute)return;ch=ch.then(()=>play(ks)).catch(()=>{})};
 async function play(ks){for(const k of ks){const u=C[k];
- if(u)await new Promise(r=>{const a=new Audio(u);a.volume=S.vol;a.onended=a.onerror=r;a.play().catch(r);setTimeout(r,8000)});
- else if(S.tts&&window.speechSynthesis)await new Promise(r=>{const z=new SpeechSynthesisUtterance(SL.find(x=>x[0]==k)[1]);z.lang='fa-IR';z.volume=S.vol;z.onend=z.onerror=r;speechSynthesis.speak(z);setTimeout(r,6000)})}}
+ if(u)await new Promise(r=>{const a=new Audio(u);a.volume=1;a.onended=a.onerror=r;a.play().catch(r);setTimeout(r,8000)});
+ else if(S.tts&&window.speechSynthesis)await new Promise(r=>{const z=new SpeechSynthesisUtterance(SL.find(x=>x[0]==k)[1]);z.lang='fa-IR';z.volume=1;z.onend=z.onerror=r;speechSynthesis.speak(z);setTimeout(r,6000)})}}
 
 /* ---------- طرح‌ها ---------- */
 const ZN={traffic:'طرح ترافیک',air:'طرح آلودگی هوا'};
@@ -265,9 +304,10 @@ function rings(ws){
     ws.splice(i,1);go=1;break}}
   if(r.length>3)out.push(r)}
  return out}
-function setZones(list,ex){zl.clearLayers();Z=[];zEx=ex;
- list.forEach(z=>{const th=z.r[0][0]>35.4&&z.r[0][0]<36&&z.r[0][1]>51&&z.r[0][1]<51.8;const la=z.r.map(p=>p[0]),lo=z.r.map(p=>p[1]);Z.push({ty:z.ty,r:z.r,th,bb:[Math.min(...la),Math.min(...lo),Math.max(...la),Math.max(...lo)]});
-  L.polygon(z.r,{color:z.ty=='air'?'#f59e0b':'#dc2626',weight:2,fillOpacity:z.ty=='air'?.12:.2,interactive:false}).addTo(zl)})}
+function drawZones(){zl.clearLayers();Z.forEach(z=>{const on=S[z.ty=='air'?'za':'zt']||(z.th&&act(z.ty)&&(route||nav));if(on)zl.addLayer(z.poly)})}
+function setZones(list,ex){Z=[];zEx=ex;
+ list.forEach(z=>{const th=z.r[0][0]>35.4&&z.r[0][0]<36&&z.r[0][1]>51&&z.r[0][1]<51.8,la=z.r.map(p=>p[0]),lo=z.r.map(p=>p[1]);
+  Z.push({ty:z.ty,r:z.r,th,bb:[Math.min(...la),Math.min(...lo),Math.max(...la),Math.max(...lo)],poly:L.polygon(z.r,{color:z.ty=='air'?'#f59e0b':'#dc2626',weight:2,fillOpacity:z.ty=='air'?.12:.2,interactive:false})})});drawZones()}
 function loadZones(){
  const b=ZG.features.map(f=>({ty:f.properties.type,r:f.geometry.coordinates[0].map(c=>[c[1],c[0]])}));
  let c=null;try{c=JSON.parse(LS.vn_z||'null')}catch(e){}
@@ -323,26 +363,36 @@ async function slow(av){asking=1;noAsk=Date.now()+6e5;
   if(a&&await ask('به نظر می‌رسد در ترافیک هستید (میانگین سرعت '+fa(Math.round(av*3.6))+' کیلومتر بر ساعت). مسیر دیگری به طول '+fD(a.d)+' و حدود '+fT(a.T)+' (بدون احتساب ترافیک) وجود دارد. تغییر مسیر؟','بله، تغییر بده','نه، همین مسیر')){route=await vet(a,pos,dst);draw();cur=1;spoken={};off=0;skip();say(['reroute'])}}catch(e){}
  asking=0}
 function rotate(){setRot(rot+((((-heading-rot+540)%360)+360)%360)-180,1)}
+function proj(p,a,b){const k=Math.cos(p[0]*Math.PI/180),px=p[1]*k,py=p[0],ax=a[1]*k,ay=a[0],dx=b[1]*k-ax,dy=b[0]-ay,l=dx*dx+dy*dy;
+ let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=Math.max(0,Math.min(1,t));return{d:Math.hypot(px-ax-t*dx,py-ay-t*dy)*111320,pt:[ay+t*dy,(ax+t*dx)/k]}}
+const brg=(a,b)=>{const k=Math.cos(a[0]*Math.PI/180);return(Math.atan2((b[1]-a[1])*k,b[0]-a[0])*180/Math.PI+360)%360};
+function snapP(){const pts=route.pts;let bd=1e9,bi=0,bq=null;
+ const sc=(a,b)=>{for(let i=a;i<b;i++){const q=proj(pos,pts[i],pts[i+1]);if(q.d<bd){bd=q.d;bi=i;bq=q}}};
+ sc(Math.max(0,ri-8),Math.min(pts.length-1,ri+80));if(bd>40)sc(0,pts.length-1);sdist=bd;
+ if(bq&&bd<40){sn=bq.pt;ri=bi;let j=bi+1;while(j<pts.length-1&&dist(pts[bi],pts[j])<20)j++;heading=brg(pts[bi],pts[j]);
+  if(rpl){const rm=[sn].concat(pts.slice(bi+1));rpl[0].setLatLngs(rm);rpl[1].setLatLngs(rm)}}
+ else sn=null;
+ if(me)me.setLatLng(sn||pos);const a=$('#ar');if(a)a.style.transform='rotate('+heading+'deg)'}
 /* ---------- ناوبری ---------- */
 const skip=()=>{while(cur<route.st.length-1&&/^(new name|continue|exit roundabout|exit rotary|notification)$/.test(route.st[cur].t))cur++};
 function dirKey(s){if(s.t=='arrive')return'arrive';if(/^(roundabout|rotary)/.test(s.t))return'roundabout';
  return({uturn:'uturn','sharp left':'sharp_left','sharp right':'sharp_right','slight left':'slight_left','slight right':'slight_right',left:'left',right:'right'})[s.m]||'straight'}
 $('#st').onclick=()=>{
  if(!route)return;if(!pos){if(gpsErr)gpsNote(1);else toast('منتظر پیدا شدن موقعیت GPS باشید');return}
- nav=1;cur=1;spoken={};off=0;follow=1;skip();
+ nav=1;cur=1;spoken={};off=0;follow=1;pitch=0;ri=0;sn=null;adHide();skip();
  ['#card','#res'].forEach(s=>$(s).style.display='none');document.body.classList.add('nv');$('#top').classList.remove('open');setRot(rot,1);hist=[];noAsk=Date.now()+12e4;pinsDraw();if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase('normal',1);$('#nav').style.display=$('#bar').style.display='flex';
  try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>wl=w).catch(()=>{})}catch(e){}
  map.setView(pos,17);say(['depart']);tick({coords:{}})};
 $('#sp').onclick=()=>stopNav('مسیریابی لغو شد');
 function stopNav(msg){
- pid++;okZ={};sMode=0;$('#q').placeholder='جستجوی مقصد…';$('#q').value='';qs();nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();
+ pid++;okZ={};sMode=0;adHide();pitch=0;sn=null;rpl=null;ri=0;$('#cs').textContent='';$('#q').placeholder='جستجوی مقصد…';$('#q').value='';qs();nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();drawZones();
  ['#nav','#bar','#card'].forEach(s=>$(s).style.display='none');document.body.classList.remove('nv');$('#top').classList.remove('open');setRot(0,0);if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase(S.bl,1);$('#top').style.display='flex';
  try{wl&&wl.release()}catch(e){}wl=null;try{speechSynthesis.cancel()}catch(e){}$('#res').style.display='none';if(msg)toast(msg)}
 async function tick(p){
- const st=route.st;if(cur>=st.length)return;
+ const st=route.st;if(cur>=st.length)return;snapP();
  let s=st[cur],d=dist(pos,s.p);s.min=Math.min(s.min??1e9,d);
- if(follow){map.panTo(pos);nUp?setRot(0,1):rotate()}
- let md=1e9;for(const q of route.pts){const x=dist(pos,q);if(x<md)md=x}
+ if(follow){map.panTo(sn||pos,{duration:.9,easeLinearity:1});nUp?setRot(0,1):rotate()}
+ let md=sdist;
  off=md>70?off+1:0;
  if(off>=3&&!rr&&Date.now()-lastRR>15000){lastRR=Date.now();newRoute();return}
  const arr=s.t=='arrive';
@@ -353,14 +403,15 @@ async function tick(p){
  if(K!='arrive'){
   const lv=[[1000,'d1000'],[500,'d500'],[200,'d200'],[45,'']],f=lv.filter(x=>d<=x[0]).pop();
   if(f&&!spoken[f[0]]){lv.forEach(x=>{if(x[0]>=f[0])spoken[x[0]]=1});say(f[1]?[f[1],K]:[K])}}
- $('#ni').textContent=ICO[K];$('#nt').textContent=SL.find(x=>x[0]==K)[1]+(s.n?' • '+s.n:'')+(K=='roundabout'&&s.x?' • خروجی '+fa(s.x):'');$('#nd').textContent=fD(d);
+ const lab=SL.find(x=>x[0]==K)[1];$('#ni').textContent=ICO[K];$('#nt').textContent=s.n||lab;$('#nd').textContent=fD(d)+(s.n?'، '+lab:'')+(K=='roundabout'&&s.x?'، خروجی '+fa(s.x):'');
+ {let k=cur-1;while(k>0&&!st[k].n)k--;const cn=st[Math.max(k,0)].n;$('#cs').textContent=cn?'🛣 '+cn:''}
  let rem=d;for(let i=cur;i<st.length;i++)rem+=st[i].d;
  const now=Date.now();while(hist.length&&now-hist[0][0]>18e4)hist.shift();
  const win=hist.length?now-hist[0][0]:0;let f=1,av=0;
  if(hist.length>3&&win>6e4){let m=0;for(let i=1;i<hist.length;i++)m+=dist(hist[i-1][1],hist[i][1]);av=m/(win/1e3);f=1+(Math.min(3,Math.max(1,route.d/route.T/Math.max(av,.5)))-1)*Math.min(1,win/18e4)}
  let v=p.coords.speed;if(v==null&&hist.length>1){const a=hist[hist.length-2],b=hist[hist.length-1];v=dist(a[1],b[1])/Math.max(1,(b[0]-a[0])/1e3)}
  const sp=v>.8?Math.round(v*3.6):0,eta=rem*route.T/route.d*f;$('#spd b').textContent=sp;
- $('#bi').innerHTML='<b>'+fD(rem)+' • '+fT(eta)+'</b><small>رسیدن '+new Date(now+eta*1e3).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+(f>1.5?' • ⚠ ترافیک سنگین':f>1.2?' • ترافیک':'')+'</small>';
+ $('#bi').innerHTML='<b>'+fD(rem)+'، '+fT(eta)+'</b><small>رسیدن '+new Date(now+eta*1e3).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+(f>1.5?'، ⚠ ترافیک سنگین':f>1.2?'، ترافیک':'')+'</small>';
  if(f>2&&win>15e4&&rem>3000&&!asking&&now>noAsk)slow(av)}
 
 /* ---------- دکمه‌ها و تنظیمات ---------- */
@@ -377,14 +428,14 @@ $('#fm').onchange=async e=>{const fs=[...e.target.files];e.target.value='';const
  for(const f of fs){const k=slotOf(f.name);if(!k||f.size>1e7){bad.push(f.name);continue}
   C[k]=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f.type?f:new Blob([f],{type:'audio/mpeg'}))});ok.push(k)}
  save();renderClips();toast(ok.length+' صدا جایگذاری شد'+(bad.length?'؛ نام نامشناخته یا فایل بزرگ: '+bad.slice(0,4).join('، '):''))};
-$('#bl').onclick=()=>{follow=1;if(pos)map.setView(pos,Math.max(map.getZoom(),16));else if(gpsErr)gpsNote(1);else toast('در حال یافتن موقعیت…')};
+$('#bl').onclick=()=>{follow=1;flat();if(pos)map.setView(pos,Math.max(map.getZoom(),16));else if(gpsErr)gpsNote(1);else toast('در حال یافتن موقعیت…')};
 $('#bt').onclick=()=>{if(tl){map.removeLayer(tl);tl=null;$('#bt').style.background='';return}tl=L.tileLayer(S.tu,{maxZoom:19,opacity:.9,zIndex:5}).addTo(map);$('#bt').style.background='var(--ac)'};
 setInterval(()=>{if(tl)tl.setUrl(S.tu+(S.tu.includes('?')?'&':'?')+'_='+(Date.now()/12e4|0))},12e4);
-$('#bs').onclick=()=>{$('#v').value=S.vol;$('#t').checked=!!S.tts;$('#tu').value=S.tu;renderClips();$('#set').style.display='block'};
+$('#bs').onclick=()=>{$('#t').checked=!!S.tts;$('#zt').checked=!!S.zt;$('#za').checked=!!S.za;renderClips();$('#set').style.display='block'};
 $('#sx').onclick=()=>$('#set').style.display='none';
-$('#v').oninput=e=>{S.vol=+e.target.value;save()};
+$('#zt').onchange=e=>{S.zt=e.target.checked?1:0;save();drawZones()};
+$('#za').onchange=e=>{S.za=e.target.checked?1:0;save();drawZones()};
 $('#t').onchange=e=>{S.tts=e.target.checked?1:0;save()};
-$('#tu').onchange=e=>{S.tu=e.target.value.trim();save()};
 function renderClips(){
  const b=$('#clips');b.innerHTML='';const have=SL.filter(x=>C[x[0]]).length;
  $('#cnt').textContent=fa(have)+' از '+fa(SL.length);$('#pgb').style.width=(have/SL.length*100)+'%';
@@ -415,6 +466,8 @@ $('#fi').onchange=e=>{
  if(f.size>1e7){toast('فایل بزرگ است (حداکثر ۱۰ مگابایت)');return}
  const fr=new FileReader();fr.onload=()=>{C[fk]=fr.result;save();renderClips()};fr.readAsDataURL(f)};
 $('#lm').innerHTML=[['normal','نقشه'],['sat','ماهواره'],['topo','پستی‌بلندی']].map(a=>'<button data-l="'+a[0]+'">'+a[1]+'</button>').join('');
+$('#zi').onclick=()=>map.zoomIn();$('#zo').onclick=()=>map.zoomOut();
+setInterval(drawZones,6e4);
 $('#bk').onclick=()=>{if(nav){toast('در مسیریابی فقط نقشه اصلی فعال است');return}const m=$('#lm');m.style.display=m.style.display=='flex'?'none':'flex'};
 $('#lm').onclick=e=>{const k=e.target.dataset.l;if(k){setBase(k);$('#lm').style.display='none'}};
 setBase(BL[S.bl]?S.bl:'normal');loadZones();
