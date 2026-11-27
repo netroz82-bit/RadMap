@@ -20,8 +20,9 @@ button.p{background:var(--ac);color:#241a00;font-weight:700}
 #nav{top:8px;left:8px;right:62px;padding:12px 16px;display:none;align-items:center;gap:14px;background:var(--gn);border:2px solid #fff}
 #ni{font-size:38px;min-width:44px;text-align:center}
 #nt{font-size:18px;font-weight:700}#nd{font-size:22px;color:#ffd666}
+.navtxt{min-width:0;flex:1}#navModes{display:flex;gap:5px;flex-shrink:0;order:-1;width:100%;margin-bottom:5px}#navModes button{font-size:12px;padding:7px 9px;border-radius:9px;background:#38424d;color:#fff;white-space:nowrap}#navModes button.active{background:#2f7bff;color:#fff;font-weight:700}body.nv #nav{right:8px;left:8px;max-width:none;gap:8px}
 #card{bottom:10px;left:66px;right:8px;padding:12px;display:none}
-#card .r{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+#card .r{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}#card #navModes{width:100%;justify-content:center}
 #bar{bottom:10px;left:66px;right:8px;padding:10px 14px;display:none;justify-content:space-between;align-items:center}
 #fab{position:absolute;z-index:1000;bottom:10px;left:10px;display:flex;flex-direction:column;gap:8px}
 #fab button{width:46px;height:46px;border-radius:50%;padding:0;font-size:20px;background:var(--pn);box-shadow:0 2px 8px #0008}
@@ -109,13 +110,30 @@ body:not(.nv) #lim{display:none!important}
 #c3{position:absolute;z-index:900;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;pointer-events:none;display:none}
 body.c3 #c3{display:block}body.c3 #ar{opacity:0}
 body.fm.nv #ar{font-size:0;width:30px;height:30px;margin:0;background:none;filter:none}body.fm.nv #ar::before{content:'🚶';font-size:28px}
+#scrub{display:none;left:0;right:0;bottom:0;border-radius:0;padding:12px 14px;align-items:center;gap:10px;background:#fff;color:#111;z-index:1600}
+#scrub span{font-size:12px;font-weight:700;white-space:nowrap}
+#scrRange{flex:1;min-width:0;direction:rtl;accent-color:#2f7bff;height:28px}
+#scrCar{font-size:24px;position:absolute;left:50%;bottom:35px;transform:translateX(-50%);pointer-events:none;transition:left .04s}
+body.nv #bar{left:8px;right:8px;bottom:64px;max-width:calc(100% - 16px);padding:8px 10px;z-index:1700}
+body.nv #nav{max-width:calc(100% - 70px);z-index:1700;top:8px;left:8px;right:66px}
+body.nv #cs{bottom:126px;left:8px;right:8px;z-index:1500;pointer-events:none}
+body.nv #scrub{display:flex}
+body.nv #fab{bottom:145px}
+body.nv #spd{bottom:145px}
+#areaPick.active{background:#ffb400;color:#241a00;font-weight:700}
+#odpg{background:#2f7bff}
+body.fm.nv #ar{font-size:0;width:30px;height:30px;margin:0;background:none;filter:none}
+body.fm.nv #ar::before{content:'🧒🏻';font-size:28px}
+.leaflet-control-attribution,.leaflet-control-attribution a{display:none!important;visibility:hidden!important}
+#scrub button{padding:6px 12px;font-size:18px;background:#e6edf7;color:#111;flex:none;touch-action:manipulation}
 </style></head><body>
 <div id="map"></div>
 <div id="top" class="pn"><div class="qw"><input id="q" class="in" placeholder="جستجوی مقصد…" enterkeyhint="search"><span id="qx">×</span></div><button id="go">🔍</button></div>
 <div id="res" class="pn"></div>
-<div id="nav" class="pn"><div id="ni">⬆</div><div><div id="nt"></div><div id="nd"></div></div></div>
-<div id="card" class="pn"><div id="ci"></div><div class="r"><button class="p" id="st">▶ شروع مسیریابی</button><button id="po"></button><button id="so">🔍 جستجوی مبدا</button><button id="ft">🗺</button><button id="sv">⭐</button><button id="cx">✕</button></div></div>
+<div id="nav" class="pn"><div id="ni">⬆</div><div class="navtxt"><div id="nt"></div><div id="nd"></div></div></div>
+<div id="card" class="pn"><div id="ci"></div><div class="r"><div id="navModes"><button type="button" data-mode="car">🚗 خودرو</button><button type="button" data-mode="foot">🧒🏻 پیاده</button></div><button class="p" id="st">▶ شروع مسیریابی</button><button id="po"></button><button id="so">🔍 جستجوی مبدا</button><button id="ft">🗺</button><button id="sv">⭐</button><button id="cx">✕</button></div></div>
 <div id="bar" class="pn"><span id="bi"></span><button id="sb" style="display:none"></button><button id="sp" style="background:var(--rd)">پایان</button></div>
+<div id="scrub" class="pn"><button id="scrBk" type="button">⏪</button><span id="scrStart">مبدا</span><input id="scrRange" type="range" min="0" max="1000" value="0"><span id="scrEnd">مقصد</span><button id="scrFw" type="button">⏩</button><span id="scrCar">🚗</span></div>
 <div id="fab"><button id="bk">🛰</button><button id="bs">⚙</button><button id="bt">🚦</button><button id="bl">📍</button></div>
 <canvas id="c3"></canvas><div id="ad"></div><div id="cs"></div><div id="gl"></div><div id="zb"><button id="zi">＋</button><button id="zo">－</button></div><div id="cp"><b>N</b><i></i></div><div id="lm" class="pn"></div><div id="lim"></div><div id="spd"><b>0</b><small>km/h</small></div><div id="toast"></div>
 <div id="dlg"><div class="bx"><div id="dt"></div><div id="dc"></div><div class="r"><button class="p" id="dy"></button><button id="dn"></button></div></div></div>
@@ -140,7 +158,9 @@ body.fm.nv #ar{font-size:0;width:30px;height:30px;margin:0;background:none;filte
 <div class="cd"><div class="sec"><h4>🗺 نقشه و مسیریابی آفلاین</h4><span class="chip" id="oc"></span></div>
 <small>جاده‌ها و نام خیابان‌های اطراف مرکز نقشه را دانلود می‌کنید. بدون اینترنت، در همان محدوده نقشه آفلاین، جستجوی نام خیابان و مسیریابی (خودرو و پیاده) کار می‌کند. دانلود کل استان ممکن نیست؛ هر دانلود تا شعاع ۵ کیلومتر است و می‌توانید چند محدوده ذخیره کنید.</small>
 <label class="ln"><span>شعاع دانلود</span><select id="oa" class="in" style="width:auto"><option value="1500">۱٫۵ کیلومتر</option><option value="3000" selected>۳ کیلومتر</option><option value="5000">۵ کیلومتر</option></select></label>
-<button class="p wide" id="od">دانلود اطراف مرکز نقشه</button><small id="ost"></small><div id="ol"></div></div>
+<button class="wide" id="areaPick">✏️ انتخاب محدوده روی نقشه</button>
+<button class="wide" id="oi">🇮🇷 دانلود جاده‌های اصلی کل ایران (مسیریابی بین‌شهری)</button>
+<button class="p wide" id="od">دانلود اطراف مرکز نقشه</button><div class="bar"><i id="odpg"></i></div><small id="ost"></small><div id="ol"></div></div>
 <div class="cd"><div class="sec"><h4>📡 وضعیت GPS</h4><span class="chip" id="gs"></span></div>
 <small id="gd"></small>
 <button class="p wide" id="gr">تلاش مجدد برای اتصال GPS</button>
@@ -164,9 +184,9 @@ const SL=[['depart','حرکت کنید'],['left','به چپ بپیچید'],['rig
 ['zs_t','به محدوده طرح ترافیک نزدیک می‌شوید'],['zin_t','وارد محدوده طرح ترافیک شدید'],['zout_t','از محدوده طرح ترافیک خارج شدید'],['zs_a','به محدوده طرح آلودگی هوا نزدیک می‌شوید'],['zin_a','وارد محدوده طرح آلودگی هوا شدید'],['zout_a','از محدوده طرح آلودگی هوا خارج شدید']];
 const ICO={depart:'⬆',left:'⬅',right:'➡',slight_left:'↖',slight_right:'↗',sharp_left:'↙',sharp_right:'↘',straight:'⬆',uturn:'↩',roundabout:'⟳',arrive:'🏁'};
 let S={},C={};try{S=JSON.parse(LS.vn_s||'{}');C=JSON.parse(LS.vn_c||'{}')}catch(e){}
-delete S.key;S={vol:1,tts:1,tu:'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',...S};S.mute=0;delete S.zs;delete S.zj;if(S.pv==null)S.pv=1;if(S.mode==null)S.mode='car';if(S.rate==null)S.rate=1.5;if(S.tf==null)S.tf=1;
+delete S.key;S={vol:1,tts:1,tu:'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',...S};S.mute=0;delete S.zs;delete S.zj;if(S.pv==null)S.pv=1;S.mode='car';if(S.rate==null)S.rate=1.5;if(S.tf==null)S.tf=1;
 const save=()=>{try{LS.vn_s=JSON.stringify(S)}catch(e){}idbPut();return 1};
-const idb=new Promise(r=>{try{const q=indexedDB.open('radmap',3);q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains('k'))d.createObjectStore('k');if(!d.objectStoreNames.contains('t'))d.createObjectStore('t');if(!d.objectStoreNames.contains('a'))d.createObjectStore('a')};q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)}catch(e){r(null)}});
+const idb=new Promise(r=>{try{const q=indexedDB.open('radmap',4);q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains('k'))d.createObjectStore('k');if(!d.objectStoreNames.contains('t'))d.createObjectStore('t');if(!d.objectStoreNames.contains('a'))d.createObjectStore('a');if(!d.objectStoreNames.contains('tiles'))d.createObjectStore('tiles')};q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)}catch(e){r(null)}});
 let it0=0;
 const idbPut=()=>{clearTimeout(it0);it0=setTimeout(async()=>{const d=await idb;
  if(!d){try{LS.vn_c=JSON.stringify(C)}catch(e){toast('حافظه پر است؛ تعداد یا حجم صداها را کم کنید')}return}
@@ -180,13 +200,22 @@ function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';cl
 
 /* ---------- نقشه ---------- */
 const map=L.map('map',{zoomControl:false,attributionControl:false,maxZoom:19,zoomSnap:0}).setView([35.6892,51.389],12);
+// Tile cache: save visible online map tiles and transparently read them offline.
+const tileDB=(async()=>{try{const q=indexedDB.open('radmap',4);q.onupgradeneeded=()=>{const d=q.result;['k','t','a','tiles'].forEach(n=>{if(!d.objectStoreNames.contains(n))d.createObjectStore(n)})};return await new Promise(r=>{q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}})();
+async function tileGet(k){const d=await tileDB;if(!d||!d.objectStoreNames.contains('tiles'))return null;return new Promise(r=>{try{const q=d.transaction('tiles').objectStore('tiles').get(k);q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)}catch(e){r(null)}})}
+async function tilePut(k,b){const d=await tileDB;if(!d||!d.objectStoreNames.contains('tiles'))return;try{d.transaction('tiles','readwrite').objectStore('tiles').put(b,k)}catch(e){}}
+const CachedTileLayer=L.TileLayer.extend({createTile:function(coords,done){const img=document.createElement('img'),ac=new AbortController();img.alt='';img.setAttribute('role','presentation');img._ac=ac;const z=coords.z,x=coords.x,y=coords.y,key=this._url.replace('{s}','a').replace('{z}',z).replace('{x}',x).replace('{y}',y);
+ const show=b=>{img.onload=()=>{try{URL.revokeObjectURL(img.src)}catch(e){}done(null,img)};img.onerror=()=>done(null,img);img.src=URL.createObjectURL(b)};
+ (async()=>{let blob=await tileGet(key);if(ac.signal.aborted)return;if(blob){show(blob);return}
+ if(navigator.onLine===false){done(null,img);return}
+ try{const u=this._url.replace('{s}',this.options.subdomains?this.options.subdomains[0]:'a').replace('{z}',z).replace('{x}',x).replace('{y}',y),tm=setTimeout(()=>ac.abort(),8000),r=await fetch(u,{mode:'cors',signal:ac.signal});clearTimeout(tm);if(!r.ok)throw 0;blob=await r.blob();tilePut(key,blob);show(blob)}catch(e){done(null,img)}})();return img}});
 const BL={normal:['https://tile.openstreetmap.org/{z}/{x}/{y}.png',19],sat:['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',18],topo:['https://tile.opentopomap.org/{z}/{x}/{y}.png',17],off:['',19]};
 const LAB='https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
 let base=null,lab=null;
 function setBase(k,tmp){
  if(!tmp){S.bl=k;save()}if(base)map.removeLayer(base);if(lab){map.removeLayer(lab);lab=null}
- base=(k=='off'?new OTL({maxZoom:19,zIndex:1}):L.tileLayer(BL[k][0],{maxZoom:19,maxNativeZoom:BL[k][1],subdomains:'abc',zIndex:1})).addTo(map);
- if(k=='sat')lab=L.tileLayer(LAB,{maxZoom:19,maxNativeZoom:18,zIndex:3}).addTo(map);
+ base=(k=='off'?new OTL({maxZoom:19,zIndex:1}):new CachedTileLayer(BL[k][0],{maxZoom:19,maxNativeZoom:BL[k][1],subdomains:'abc',zIndex:1})).addTo(map);
+ if(k!='off')base.on('tileunload',e=>{try{e.tile._ac&&e.tile._ac.abort()}catch(x){}});if(k=='sat')lab=L.tileLayer(LAB,{maxZoom:19,maxNativeZoom:18,zIndex:3}).addTo(map);
  document.querySelectorAll('#lm button').forEach(b=>b.className=b.dataset.l==k?'p':'')}
 const lines=L.layerGroup().addTo(map),pins=L.layerGroup().addTo(map),zl=L.layerGroup().addTo(map);let Z=[],tl=null,rot=0,hist=[],noAsk=0,asking=0,okZ={},sMode=0,zEx=0,nUp=0,pitch=0,sn=null,ri=0,rpl=null,lastFix=0,sdist=0,offSaid=0,spN=0,zst=null,zw={},navRot=0,rtm=0,lt=null,lastTouch=0,simT=0,simD=0,dragT=0,lastSp=0;
 const pinI=(c,ch,t)=>L.divIcon({html:'<div class="pin '+c+'"><b>'+ch+'</b></div><div class="pt">'+t+'</div>',className:'em',iconSize:[30,30],iconAnchor:[15,38]});
@@ -195,7 +224,9 @@ map.on('dragstart',()=>follow=0);
 map.on('click',()=>{$('#res').style.display='none';$('#lm').style.display='none'});
 const flagI=L.divIcon({html:'<div class="flag">🏁</div><div class="pt">مقصد</div>',className:'em',iconSize:[30,30],iconAnchor:[8,36]});
 const pinsDraw=()=>{pins.clearLayers();const o=org||(nav?null:pos);o&&L.marker(o,{icon:pinI('g','A','مبدا')}).addTo(pins);dst&&L.marker(dst,{icon:flagI}).addTo(pins)};
-function draw(){lines.clearLayers();rpl=[L.polyline(route.pts,{color:'#0a2a66',weight:10,opacity:.85}).addTo(lines),L.polyline(route.pts,{color:'#2f7bff',weight:6}).addTo(lines)];ri=0;drawZones()}
+function draw(){lines.clearLayers();const f=S.mode=='foot',lc={lineCap:'round',lineJoin:'round',dashArray:f?'1 11':null};
+ L.polyline(route.pts,{...lc,color:'#9db8e8',weight:6,opacity:.28,interactive:false}).addTo(lines); // whole route, very faint = traveled part stays visible
+ rpl=[L.polyline(route.pts,{...lc,color:'#0a2a66',weight:f?9:10,opacity:.85}).addTo(lines),L.polyline(route.pts,{...lc,color:'#2f7bff',weight:6}).addTo(lines)];ri=0;drawZones()}
 
 /* ---------- لمس: نگه‌داشتن برای علامت‌گذاری، کشیدن، چرخاندن با دو انگشت ---------- */
 map.dragging.disable();map.touchZoom.disable();
@@ -223,13 +254,18 @@ async function showAddr(ll){const e=$('#ad'),my=++adn,cf=fa(ll.lat.toFixed(5))+'
  try{const j=await J('https://nominatim.openstreetmap.org/reverse?format=jsonv2&accept-language='+lang()+'&zoom=18&lat='+ll.lat+'&lon='+ll.lng,8000),a=j.address||{};
   const t=[a.road||a.pedestrian||a.footway,a.neighbourhood||a.suburb||a.quarter,a.city||a.town||a.village||a.county].filter(Boolean).join('، ')||j.display_name;
   if(my==adn){e.textContent=t||cf;dstName=t||cf}}catch(x){if(my==adn){e.textContent=cf;dstName=cf}}}
-function markPt(ll){if(nav)return;flat();const p=[ll.lat,ll.lng];if(pickOrg){pickOrg=0;org=p}else dst=p;pinsDraw();showAddr(ll);plan();try{navigator.vibrate(40)}catch(e){}}
+let areaPickOn=0,areaFirst=null,areaRect=null;
+function clearAreaRect(){if(areaRect){map.removeLayer(areaRect);areaRect=null}}
+function markPt(ll){if(nav)return;flat();const p=[ll.lat,ll.lng];
+ if(areaPickOn){if(!areaFirst){areaFirst=p;areaRect=L.rectangle([p,p],{color:'#ffb400',weight:3,fillColor:'#ffb400',fillOpacity:.18,dashArray:'7 5'}).addTo(map);toast('گوشه اول ثبت شد؛ گوشه مقابل محدوده را علامت بزنید');return}
+ const bb=[Math.min(areaFirst[0],p[0]),Math.min(areaFirst[1],p[1]),Math.max(areaFirst[0],p[0]),Math.max(areaFirst[1],p[1])];if(areaRect)areaRect.setBounds([[bb[0],bb[1]],[bb[2],bb[3]]]);areaFirst=null;areaPickOn=0;$('#areaPick').classList.remove('active');downloadBounds(bb,'محدوده انتخاب‌شده');return}
+ if(pickOrg){pickOrg=0;org=p}else dst=p;pinsDraw();showAddr(ll);plan();try{navigator.vibrate(40)}catch(e){}}
 const two=()=>{const [a,b]=Object.values(P);return{d:Math.hypot(b.x-a.x,b.y-a.y)||1,g:Math.atan2(b.y-a.y,b.x-a.x),x:(a.x+b.x)/2,y:(a.y+b.y)/2}};
 mel.addEventListener('pointerdown',e=>{moved=1;lastTouch=Date.now();adHide();const ae=document.activeElement;if(ae&&ae.tagName=='INPUT')ae.blur();
  P[e.pointerId]={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY,t:Date.now()};clearTimeout(lp);const n=Object.keys(P).length;
  if(n==1){drag=0;lp=setTimeout(()=>{if(!drag&&Object.keys(P).length==1&&!nav)markPt(toLL(e.clientX,e.clientY))},1000)}
  else if(n==2){drag=1;const t=two();map._stop();map._moveStart(true,false);G={d:t.d,pg:t.g,z:map.getZoom(),r:rot,tw:0,on:0,m:0,x0:t.x,y0:t.y,p0:pitch,ll:(nav||pitch>.5)?null:toLL(t.x,t.y)}}});
-mel.addEventListener('pointermove',e=>{const q=P[e.pointerId];if(!q)return;
+mel.addEventListener('pointermove',e=>{if(areaPickOn&&areaFirst){const ll=toLL(e.clientX,e.clientY);if(areaRect)areaRect.setBounds([[Math.min(areaFirst[0],ll.lat),Math.min(areaFirst[1],ll.lng)],[Math.max(areaFirst[0],ll.lat),Math.max(areaFirst[1],ll.lng)]]);}const q=P[e.pointerId];if(!q)return;
  lastTouch=Date.now();const n=Object.keys(P).length,dx=e.clientX-q.x,dy=e.clientY-q.y;q.x=e.clientX;q.y=e.clientY;
  if(n==1){if(!drag&&Math.hypot(q.x-q.x0,q.y-q.y0)>10){drag=1;clearTimeout(lp)}
   if(drag){dragT=Date.now();map._rawPanBy(toCP(q.x-dx,q.y-dy).subtract(toCP(q.x,q.y)).round());map.fire('move');panned=1;if(nav&&follow)toast('برای دنبال کردن مسیر دوباره، 📍 را لمس کنید');follow=0}}
@@ -255,25 +291,32 @@ $('#cp').onclick=()=>{pitch=0;if(nav){nUp=!nUp;toast(nUp?'شمال به بالا
 /* ---------- GPS ---------- */
 let gpsErr=0,lastGN=0;
 function gpsNote(f){if((f||nav)&&Date.now()-lastGN>2e4){lastGN=Date.now();toast(gCode==1?'مجوز موقعیت مکانی داده نشده است؛ در تنظیمات اندروید برای برنامه روشن کنید':'GPS در دسترس نیست؛ موقعیت دستگاه را روشن کنید')}}
-let gw=null,gHi=1,gCode=0,gAcc=0,gFail=0,gManual=0,gLostSaid=0,gSkip=0,gLast=null;
-const GOPT=()=>gHi?{enableHighAccuracy:true,maximumAge:1000,timeout:15000}:{enableHighAccuracy:false,maximumAge:20000,timeout:30000};
-function gErr(e){gCode=e&&e.code||0;gpsErr=1;gFail++;$('#gl').className='';gpsNote();
- if(nav&&!gLostSaid){gLostSaid=1;say(['gpsoff'])}
- if(gCode!=1)gHi=gHi?0:1;
- setTimeout(startGps,gCode==1?15000:2500)}
+let gw=null,gHi=1,gCode=0,gAcc=0,gFail=0,gManual=0,gLostSaid=0,gSkip=0,gLast=null,gTries=0,gAt=0,gPoll=0,gPollAt=0,capW=null,nW=0,nP=0,nC=0,gDen=0,gNat='—',gGap=0;const T00=Date.now(),gStale=()=>Math.min(20000,Math.max(8000,gGap*3));
+try{const lp=JSON.parse(LS.radmap_lastpos||'null');if(lp&&Array.isArray(lp.p)&&lp.p.length===2){pos=lp.p;lastFix=0;gAcc=lp.a||999}}catch(e){}
+if(pos){me=L.marker(pos,{icon:L.divIcon({html:'<div id="ar">▲</div>',className:'me',iconSize:[30,30]})}).addTo(map);map.setView(pos,15)}
 function startGps(){if(!navigator.geolocation){gCode=-1;return}
- if(gw!=null)try{navigator.geolocation.clearWatch(gw)}catch(e){}
- gw=navigator.geolocation.watchPosition(onPos,gErr,GOPT())}
-setInterval(()=>{if(navigator.geolocation&&Date.now()-lastFix>8000)navigator.geolocation.getCurrentPosition(onPos,()=>{},{enableHighAccuracy:false,maximumAge:60000,timeout:10000})},6000);
-setInterval(()=>{if(!gHi&&(gAcc>200||!lastFix)){gHi=1;startGps()}},6e4);
-startGps();document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(Date.now()-lastFix>8000)startGps();if(nav)wake()}});
+ gAt=Date.now();try{if(gw!=null)navigator.geolocation.clearWatch(gw)}catch(e){}
+ gHi=gTries%2===0?1:0;gTries++; // no fix yet: alternate GPS-chip and normal accuracy, only after a long silence
+ try{gw=navigator.geolocation.watchPosition(p=>{nW++;onPos(p)},gErr,{enableHighAccuracy:!!gHi,maximumAge:0})}catch(e){gErr({code:0})}}
+function gErr(e){gCode=e&&e.code||0;gpsErr=1;gFail++;gDen=gCode==1;
+ if(Date.now()-lastFix>gStale()*2){$('#gl').className='';if(nav&&!gLostSaid){gLostSaid=1;say(['gpsoff'])}}gpsNote()}
+function gPollFn(){const n=Date.now();if(gPoll||!navigator.geolocation||n-lastFix<20000||n-gPollAt<50000)return;gPoll=1;gPollAt=n;setTimeout(()=>{gPoll=0},46000);
+ try{navigator.geolocation.getCurrentPosition(p=>{gPoll=0;nP++;onPos(p)},e=>{gPoll=0;if(e&&e.code===1)gErr(e)},{enableHighAccuracy:!!gHi,maximumAge:5000,timeout:45000})}catch(e){gPoll=0}}
+const capG=()=>{try{return window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.Geolocation}catch(e){}};
+function startNative(){const G=capG();if(capW!==null||!G||!G.watchPosition)return;capW=0;gNat='starting';
+ const run=()=>{try{const r=G.watchPosition({enableHighAccuracy:true,timeout:1000,maximumAge:0,interval:1000,minimumUpdateInterval:1000},(p,err)=>{if(p){gNat='ok';nC++;onPos(p)}else if(err)gNat='error '+(err.code||'')+' '+(err.message||'')});if(r&&r.then)r.then(id=>{capW=id},e=>{gNat='error '+e})}catch(e){gNat='error '+e}};
+ try{const q=G.requestPermissions&&G.requestPermissions();if(q&&q.then)q.then(run,run);else run()}catch(e){run()}}
+setInterval(()=>{const n=Date.now(),since=n-Math.max(lastFix,gAt);
+ if(gDen?n-gAt>10000:since>(gHi?(lastFix?90000:180000):60000))startGps(); // keep ONE watch alive: restarting it stops the receiver
+ if(n-Math.max(lastFix,T00)>10000)startNative();gPollFn()},1000);
+startGps();document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(!lastFix||Date.now()-lastFix>30000)startGps();if(nav)wake()}});
 function onPos(p){
- const wasC=lastFix&&Date.now()-lastFix<12e3;
+ const wasC=lastFix&&Date.now()-lastFix<Math.max(12e3,gStale());
  if(!p.manual&&nav&&gLast){const dt=Math.max(.5,(Date.now()-gLast.t)/1e3),np=[p.coords.latitude,p.coords.longitude];
   if(dist(gLast.p,np)>Math.max(200,55*dt)&&gSkip<3){gSkip++;if(Date.now()-lastGN>2e4){lastGN=Date.now();toast('اختلال GPS؛ موقعیت نامعتبر نادیده گرفته شد')}
    if(gSkip>=2&&!simT)autoSim('اختلال GPS؛ ادامه مسیر بدون GPS تا اتصال پایدار');return}}
- if(!p.manual){gSkip=0;gLast={p:[p.coords.latitude,p.coords.longitude],t:Date.now()}}
- gpsErr=0;gFail=0;gAcc=p.coords.accuracy||0;if(!p.manual){simOff();lastFix=Date.now();$('#gl').className='ok';gManual=0;if(gLostSaid){gLostSaid=0;if(nav)say(['gpson'])}}pos=[p.coords.latitude,p.coords.longitude];
+ if(!p.manual){gSkip=0;gLast={p:[p.coords.latitude,p.coords.longitude],t:Date.now()};manualScrub=0;manualDrive=0}
+ gpsErr=0;gFail=0;gAcc=p.coords.accuracy||0;if(!p.manual){try{LS.radmap_lastpos=JSON.stringify({p:[p.coords.latitude,p.coords.longitude],a:gAcc,t:Date.now()})}catch(e){}simOff();{const t0=lastFix;lastFix=Date.now();if(t0){const q=Math.min(lastFix-t0,60000);gGap=gGap?gGap*.7+q*.3:q}}gDen=0;gTries=0;$('#gl').className='ok';gManual=0;if(gLostSaid){gLostSaid=0;if(nav)say(['gpson'])}}pos=[p.coords.latitude,p.coords.longitude];
  if(p.coords.heading!=null&&!isNaN(p.coords.heading)&&p.coords.speed>1)heading=p.coords.heading;
  if(!me){me=L.marker(pos,{icon:L.divIcon({html:'<div id="ar">▲</div>',className:'me',iconSize:[30,30]})}).addTo(map);if(!moved)map.setView(pos,16);if(dst&&!org&&!route&&!nav)plan()}else me.setLatLng(pos);
  const a=$('#ar');if(a)a.style.transform='rotate('+heading+'deg)';
@@ -282,7 +325,7 @@ function onPos(p){
   if(mv){$('#spd b').textContent=Math.round(p.coords.speed*3.6);if(!dst&&!route&&!p.manual&&Date.now()-lastTouch>8000)map.panTo(pos,{animate:true,duration:.8,easeLinearity:1})}}
  if(nav&&route){hist.push([Date.now(),pos]);tick(p)}}
 
-setInterval(()=>{if(Date.now()-lastFix>12e3)$('#gl').className=''},3e3);
+setInterval(()=>{if(Date.now()-lastFix>Math.max(12e3,gStale()*1.5))$('#gl').className=''},3e3);
 /* ---------- نقشه و مسیریابی آفلاین ---------- */
 //ENGINE-START
 const OA=[];
@@ -293,7 +336,7 @@ function wrec(e){const t=e.tags||{},h=HC[t.highway];if(!h||!e.geometry||e.geomet
  const p=new Int32Array(e.geometry.length*2);e.geometry.forEach((q,i)=>{p[2*i]=Math.round(q.lat*1e6);p[2*i+1]=Math.round(q.lon*1e6)});
  const r=(t.junction=='roundabout'||t.junction=='circular')?1:0,ow=t.oneway,o=ow=='-1'?-1:ow=='no'?0:(ow=='yes'||ow=='1'||ow=='true'||r||h<=2)?1:0;
  return{h,n:t['name:fa']||t.name||'',o,s:parseInt(t.maxspeed)||0,r,p}}
-function idxA(A){A.la0=Math.round(A.bb[0]*1e6);A.lo0=Math.round(A.bb[1]*1e6);A.grid=new Map();
+function idxA(A){A.la0=Math.round(A.bb[0]*1e6);A.lo0=Math.round(A.bb[1]*1e6);A.grid=new Map();if(A.coarse)return;
  A.ways.forEach((w,i)=>{let a=1e9,b=-1e9,c=1e9,d=-1e9;for(let k=0;k<w.p.length;k+=2){const la=w.p[k]/1e6,lo=w.p[k+1]/1e6;if(la<a)a=la;if(la>b)b=la;if(lo<c)c=lo;if(lo>d)d=lo}
   for(let x=Math.floor(c/.004);x<=Math.floor(d/.004);x++)for(let y=Math.floor(a/.004);y<=Math.floor(b/.004);y++){const kk=ck4(x,y);let l=A.grid.get(kk);if(!l){l=[];A.grid.set(kk,l)}l.push(i)}})}
 function offGraph(A,m){const key='g_'+m;if(A[key])return A[key];
@@ -309,10 +352,10 @@ function offGraph(A,m){const key='g_'+m;if(A[key])return A[key];
    pr=cu}});
  const cell=new Map();for(let i=0;i<LA.length;i++){const c=ck4(Math.floor(LO[i]/.002),Math.floor(LA[i]/.002));let a=cell.get(c);if(!a){a=[];cell.set(c,a)}a.push(i)}
  return A[key]={LA,LO,adj,eT,eL,eS,eW,cell,N:LA.length}}
-function nearNode(G,la,lo){let best=-1,bd=1e9;const cx=Math.floor(lo/.002),cy=Math.floor(la/.002);
- for(const R of [1,2,4,8]){for(let x=cx-R;x<=cx+R;x++)for(let y=cy-R;y<=cy+R;y++){const l=G.cell.get(ck4(x,y));if(l)for(const i of l){const d=dist([la,lo],[G.LA[i],G.LO[i]]);if(d<bd){bd=d;best=i}}}
+function nearNode(G,la,lo,mx){mx=mx||600;let best=-1,bd=1e9;const cx=Math.floor(lo/.002),cy=Math.floor(la/.002);
+ for(const R of [1,2,4,8,16,32,64].filter(r=>r<=Math.max(8,mx/200))){for(let x=cx-R;x<=cx+R;x++)for(let y=cy-R;y<=cy+R;y++){const l=G.cell.get(ck4(x,y));if(l)for(const i of l){const d=dist([la,lo],[G.LA[i],G.LO[i]]);if(d<bd){bd=d;best=i}}}
   if(best>=0&&bd<R*150)break}
- return bd<600?best:-1}
+ return bd<mx?best:-1}
 function astar(G,s,t,vm){const N=G.N,g=new Float64Array(N).fill(Infinity),pe=new Int32Array(N).fill(-1),pn=new Int32Array(N).fill(-1),cl=new Uint8Array(N),tx=[G.LA[t],G.LO[t]],H=i=>dist([G.LA[i],G.LO[i]],tx)/vm,hp=[];
  const push=(f,i)=>{hp.push([f,i]);let c=hp.length-1;while(c>0){const q=(c-1)>>1;if(hp[q][0]<=hp[c][0])break;[hp[q],hp[c]]=[hp[c],hp[q]];c=q}};
  const pop=()=>{const top=hp[0],last=hp.pop();if(hp.length){hp[0]=last;let c=0;for(;;){const l=2*c+1,r=l+1;let m=c;if(l<hp.length&&hp[l][0]<hp[m][0])m=l;if(r<hp.length&&hp[r][0]<hp[m][0])m=r;if(m==c)break;[hp[m],hp[c]]=[hp[c],hp[m]];c=m}}return top};
@@ -337,11 +380,20 @@ function offSteps(G,A,nd,ed){const n=nd.length,P=i=>[G.LA[nd[i]],G.LO[nd[i]]],W=
  st.push({t:'arrive',m:'',n:'',d:0,p:P(n-1)});ix.push(n-1);
  for(let k=0;k<st.length-1;k++)st[k].d=cum[ix[k+1]]-cum[ix[k]];
  return st}
-function offRoute(a,b){const m=S.mode=='foot'?'foot':'car',inb=(p,bb)=>p[0]>=bb[0]&&p[0]<=bb[2]&&p[1]>=bb[1]&&p[1]<=bb[3],A=OA.find(x=>inb(a,x.bb)&&inb(b,x.bb));if(!A)return null;
- const G=offGraph(A,m),s=nearNode(G,a[0],a[1]),t=nearNode(G,b[0],b[1]);if(s<0||t<0||s==t)return null;
- const r=astar(G,s,t,m=='car'?25:1.4);if(!r)return null;
- const pts=r.nd.map(i=>[G.LA[i],G.LO[i]]),sp=r.ed.map(e=>G.eS[e]);let d=0,T=0;r.ed.forEach(e=>{d+=G.eL[e];T+=G.eL[e]/G.eS[e]});
- return{pts,st:offSteps(G,A,r.nd,r.ed),d,T,sp,off:1}}
+function corridor(A0,a,b){const pad=.4,bb=[Math.min(a[0],b[0])-pad,Math.min(a[1],b[1])-pad,Math.max(a[0],b[0])+pad,Math.max(a[1],b[1])+pad],ws=[];
+ for(const w of A0.ways){let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;const p=w.p;for(let k=0;k<p.length;k+=2){const la=p[k]/1e6,lo=p[k+1]/1e6;if(la<x0)x0=la;if(la>x1)x1=la;if(lo<y0)y0=lo;if(lo>y1)y1=lo}
+  if(x1>=bb[0]&&x0<=bb[2]&&y1>=bb[1]&&y0<=bb[3])ws.push(w)}
+ return{bb,ways:ws,la0:Math.round(bb[0]*1e6),lo0:Math.round(bb[1]*1e6),name:A0.name}}
+function offRoute(a,b){const m=S.mode=='foot'?'foot':'car',inb=(p,bb)=>p[0]>=bb[0]&&p[0]<=bb[2]&&p[1]>=bb[1]&&p[1]<=bb[3];
+ for(const A0 of OA){if(!inb(a,A0.bb)||!inb(b,A0.bb)||(A0.coarse&&m!='car'))continue;
+  const A=A0.coarse?corridor(A0,a,b):A0,mx=A0.coarse?15000:600,G=offGraph(A,m),s=nearNode(G,a[0],a[1],mx),t=nearNode(G,b[0],b[1],mx);if(s<0||t<0||s==t)continue;
+  const r=astar(G,s,t,m=='car'?25:1.4);if(!r)continue;
+  const pts=r.nd.map(i=>[G.LA[i],G.LO[i]]),sp=r.ed.map(e=>G.eS[e]),st=offSteps(G,A,r.nd,r.ed);let d=0,T=0;r.ed.forEach(e=>{d+=G.eL[e];T+=G.eL[e]/G.eS[e]});
+  const ca=dist(a,pts[0]),cb=dist(b,pts[pts.length-1]); // straight connectors to the nearest road of the coarse network
+  if(ca>40){pts.unshift(a);sp.unshift(8);d+=ca;T+=ca/8;st[0].d+=ca}
+  if(cb>40){pts.push(b);sp.push(8);d+=cb;T+=cb/8;st[Math.max(0,st.length-2)].d+=cb}
+  return{pts,st,d,T,sp,off:1}}
+ return null}
 function offSearch(v){const q=nz(v),o=[];if(q.length<2)return o;
  OA.forEach(A=>{const seen=new Set();A.ways.forEach(w=>{if(w.n&&!seen.has(w.n)&&nz(w.n).includes(q)){seen.add(w.n);const k=(w.p.length/4)|0;o.push({t:w.n,a:'(آفلاین) '+A.name,p:[w.p[2*k]/1e6,w.p[2*k+1]/1e6]})}})});return o.slice(0,8)}
 //ENGINE-END
@@ -349,7 +401,7 @@ const OTL=L.GridLayer.extend({createTile(c){const cv=document.createElement('can
  const z=c.z,n=1<<z,x=((c.x%n)+n)%n,y=c.y,ctx=cv.getContext('2d');
  const lonW=x/n*360-180,lonE=(x+1)/n*360-180,my=v=>Math.atan(Math.sinh(Math.PI*(1-2*v/n)))*180/Math.PI,latN=my(y),latS=my(y+1);
  const px=lo=>(lo-lonW)/(lonE-lonW)*256,py=la=>{const r=la*Math.PI/180;return((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n-y)*256};
- const as=OA.filter(A=>A.bb[1]<lonE&&A.bb[3]>lonW&&A.bb[0]<latN&&A.bb[2]>latS);if(!as.length)return cv;
+ const as=OA.filter(A=>!A.coarse&&A.bb[1]<lonE&&A.bb[3]>lonW&&A.bb[0]<latN&&A.bb[2]>latS);if(!as.length)return cv;
  ctx.fillStyle='#f2efe9';ctx.fillRect(0,0,256,256);
  const sc=z<13?.45:z<15?.75:z<17?1:1.35,dr=[],seen=new Set();
  as.forEach(A=>{for(let cx=Math.floor(lonW/.004);cx<=Math.floor(lonE/.004);cx++)for(let cy=Math.floor(latS/.004);cy<=Math.floor(latN/.004);cy++){const l=A.grid.get(ck4(cx,cy));if(l)l.forEach(i=>{const k=A.id+'_'+i;if(!seen.has(k)){seen.add(k);dr.push(A.ways[i])}})}});
@@ -370,7 +422,7 @@ const aTx=async m=>{const d=await idb;return d?d.transaction('a',m).objectStore(
 async function aAll(){try{const s=await aTx('readonly');if(!s)return[];return await new Promise(r=>{const q=s.getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=()=>r([])})}catch(e){return[]}}
 async function aPut(rec){try{const s=await aTx('readwrite');if(!s)return false;return await new Promise(r=>{const q=s.put(rec,rec.id);q.onsuccess=()=>r(true);q.onerror=()=>r(false)})}catch(e){return false}}
 async function aDel(id){try{const s=await aTx('readwrite');if(s)s.delete(id)}catch(e){}}
-async function loadOff(){OA.length=0;(await aAll()).forEach(r=>{idxA(r);OA.push(r)});renderOff();if(navigator.onLine===false&&OA.length)setBase('off',1)}
+async function loadOff(){OA.length=0;(await aAll()).forEach(r=>{idxA(r);OA.push(r)});renderOff();if(navigator.onLine===false)setBase('off',1)}
 function renderOff(){const b=$('#ol');if(!b)return;b.innerHTML='';$('#oc').textContent=fa(OA.length)+' محدوده';
  OA.forEach(A=>{const r=document.createElement('div');r.className='row';r.innerHTML='<span></span><button data-a="g">📍</button><button data-a="x">🗑</button>';
   r.firstChild.textContent=A.name+' — '+fa((A.ways.reduce((q,w)=>q+w.p.length,0)*4/1048576).toFixed(1))+' مگابایت';
@@ -378,15 +430,60 @@ function renderOff(){const b=$('#ol');if(!b)return;b.innerHTML='';$('#oc').textC
    else if(a=='x'&&await ask('این محدوده آفلاین حذف شود؟','بله، حذف شود','نه')){await aDel(A.id);OA.splice(OA.indexOf(A),1);renderOff()}};b.appendChild(r)});
  if(!OA.length)b.innerHTML='<small>هنوز محدوده‌ای ذخیره نشده است.</small>'}
 let dlOn=0;
-$('#od').onclick=async()=>{if(dlOn)return;const c=map.getCenter(),r=+$('#oa').value,dl=r/111320,dn=r/(111320*Math.cos(c.lat*Math.PI/180)),bb=[c.lat-dl,c.lng-dn,c.lat+dl,c.lng+dn];
- dlOn=1;$('#od').textContent='در حال دریافت از سرور… (ممکن است چند دقیقه طول بکشد)';
- const q='[out:json][timeout:180][maxsize:536870912];way["highway"~"^('+Object.keys(HC).join('|')+')$"]('+bb.join(',')+');out geom;';let ok=0;
- for(const u of OV){try{const j=await J(u+'?data='+encodeURIComponent(q),200000),ways=(j.elements||[]).map(wrec).filter(Boolean);
-  if(ways.length){let nm='';try{const g=await J('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=12&accept-language='+lang()+'&lat='+c.lat+'&lon='+c.lng,6000),a=g.address||{};nm=a.suburb||a.city_district||a.city||a.town||a.county||''}catch(e){}
-   const rec={id:Date.now(),name:(nm||'محدوده')+' ('+fa(Math.round(r/1000))+' کیلومتر)',bb,ways,t:Date.now()};await aPut(rec);idxA(rec);OA.push(rec);ok=1;break}}catch(e){}}
- dlOn=0;$('#od').textContent='دانلود اطراف مرکز نقشه';renderOff();toast(ok?'نقشه آفلاین ذخیره شد':'دریافت داده ناموفق بود؛ اینترنت یا سرور را بررسی کنید')};
-window.addEventListener('offline',()=>{if(OA.length){setBase('off',1);toast('اینترنت قطع شد؛ نقشه آفلاین فعال شد')}});
-window.addEventListener('online',()=>setBase(BL[S.bl]?S.bl:'normal',1));
+$('#areaPick').onclick=()=>{areaPickOn=!areaPickOn;areaFirst=null;clearAreaRect();$('#areaPick').classList.toggle('active',!!areaPickOn);$('#set').style.display='none';toast(areaPickOn?'دو گوشه محدوده را با نگه‌داشتن انگشت روی نقشه علامت بزنید':'انتخاب محدوده لغو شد')};
+function ovGet(q0,si,ms){return new Promise((res,rej)=>{const q='data='+encodeURIComponent(q0),servers=[...new Set(OV)],cs=[];let fin=0,tried=0,pend=0,hg=0;
+ const end=(f,v)=>{if(fin)return;fin=1;clearTimeout(hg);cs.forEach(c=>{try{c.abort()}catch(e){}});f(v)};
+ const go=()=>{if(fin)return;clearTimeout(hg);if(tried>=servers.length*2){if(!pend)end(rej,new Error('Overpass'));return}
+  const u=servers[(si+tried++)%servers.length],c=new AbortController(),tm=setTimeout(()=>c.abort(),ms);cs.push(c);pend++;
+  fetch(u,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:q,signal:c.signal})
+   .then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{if(!Array.isArray(j.elements))throw 0;clearTimeout(tm);end(res,j.elements)})
+   .catch(()=>{clearTimeout(tm);pend--;if(!fin)go()});
+  hg=setTimeout(go,ms*.4)};go()})}
+async function downloadIran(){
+ if(dlOn)return;if(!(await ask('جاده‌های اصلی کل ایران (آزادراه، بزرگراه و جاده‌های اصلی بین‌شهری) برای مسیریابی آفلاین دانلود شود؟ حجم دریافت زیاد است (ده‌ها مگابایت) و چند دقیقه طول می‌کشد؛ بهتر است روی وای‌فای باشید. نقشه و جزئیات هنگام اتصال از اینترنت نمایش داده می‌شود.','بله، دانلود شود','نه')))return;
+ dlOn=1;$('#od').disabled=true;$('#odpg').style.width='0%';
+ const cells=[];for(let la=25;la<40;la+=2.5)for(let lo=44;lo<63.5;lo+=2.5)cells.push([la,lo,la+2.5,lo+2.5]);
+ const q=b=>'[out:json][timeout:180];way["highway"~"^(motorway|motorway_link|trunk|trunk_link|primary|primary_link)$"]('+b.join(',')+');out geom qt;',ways=new Map();let idx=0,done=0,fail=0;
+ await Promise.all([0,1,2].map(async w=>{while(idx<cells.length){const k=idx++;
+  try{(await ovGet(q(cells[k]),w,100000)).forEach(e=>{if(e&&e.type=='way'&&!ways.has(e.id)){const r=wrec(e);if(r)ways.set(e.id,r)}})}catch(e){fail++}
+  done++;$('#odpg').style.width=Math.round(done/cells.length*100)+'%';$('#ost').textContent='جاده‌های اصلی ایران: '+fa(done)+' از '+fa(cells.length)+' بخش'}}));
+ let ok=0;
+ if(ways.size&&fail<=cells.length*.3){const rec={id:'iran',name:'کل ایران (جاده‌های اصلی)',bb:[25,44,40,63.5],ways:[...ways.values()],coarse:1,t:Date.now()};
+  if(await aPut(rec)){const i=OA.findIndex(x=>x.id=='iran');if(i>=0)OA.splice(i,1);idxA(rec);OA.push(rec);ok=1;renderOff()}}
+ dlOn=0;$('#od').disabled=false;$('#ost').textContent=ok?'جاده‌های اصلی کل ایران ذخیره شد':'دانلود کامل نشد؛ اتصال را بررسی کنید و دوباره تلاش کنید';toast(ok?'مسیریابی آفلاین کل ایران آماده شد':'دانلود جاده‌های ایران انجام نشد')}
+async function downloadBounds(bb,name){
+ if(dlOn)return;
+ if(bb[2]-bb[0]>.14||bb[3]-bb[1]>.17){toast('محدوده انتخاب‌شده بزرگ است؛ محدوده کوچک‌تری (تا حدود ۱۰ کیلومتر) انتخاب کنید');clearAreaRect();return}
+ dlOn=1;clearAreaRect();$('#od').disabled=true;$('#odpg').style.width='0%';$('#ost').textContent='در حال دریافت نقشه و اطلاعات جاده…';
+ let ok=0,storedWays=0,roadF=0,tileDone=0,tileTotal=0,tileOk=0,partial=0;
+ const upd=()=>{$('#odpg').style.width=Math.round((roadF*.5+(tileTotal?tileDone/tileTotal:0)*.5)*100)+'%';$('#ost').textContent='جاده‌ها: '+fa(Math.round(roadF*100))+'٪ | تصاویر نقشه: '+fa(tileDone)+' از '+fa(tileTotal)};
+ const servers=[...new Set(OV)],unique=new Map(),n=Math.max(1,Math.min(5,Math.ceil(Math.max(bb[2]-bb[0],(bb[3]-bb[1])*.82)/.03))),parts=[];
+ for(let i=0;i<n;i++)for(let j=0;j<n;j++)parts.push([bb[0]+(bb[2]-bb[0])*i/n,bb[1]+(bb[3]-bb[1])*j/n,bb[0]+(bb[2]-bb[0])*(i+1)/n,bb[1]+(bb[3]-bb[1])*(j+1)/n]);
+ const queryFor=b=>'[out:json][timeout:60];way["highway"~"^('+Object.keys(HC).join('|')+')$"]('+b.map(x=>x.toFixed(6)).join(',')+');out geom qt;';
+  const nameP=name?Promise.resolve(name):J('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=12&accept-language='+lang()+'&lat='+(bb[0]+bb[2])/2+'&lon='+(bb[1]+bb[3])/2,5000).then(g=>{const a=g.address||{};return a.suburb||a.city_district||a.city||a.town||a.county}).catch(()=>null);
+ const roads=(async()=>{let idx=0,done=0;const miss=[];
+  const take=k=>ovGet(queryFor(parts[k]),k,40000).then(els=>{els.forEach(e=>{if(e&&e.type=='way'&&e.id!=null)unique.set(e.id,e)});return 1}).catch(()=>0);
+  await Promise.all(servers.map(async(_,w)=>{while(idx<parts.length){const k=idx++;if(!(await take(k)))miss.push(k);done++;roadF=done/parts.length;upd()}}));
+  for(const k of miss)if(!(await take(k)))partial=1;
+  const ways=[...unique.values()].map(wrec).filter(Boolean);if(!ways.length)throw new Error('No road data');
+  const rec={id:Date.now(),name:(await nameP)||name||'محدوده',bb,ways,t:Date.now()};if(!(await aPut(rec)))throw new Error('Offline graph save failed');
+  idxA(rec);OA.push(rec);ok=1;storedWays=ways.length;renderOff()})();
+ const tiles=(async()=>{const tileX=(lon,z)=>Math.floor((lon+180)/360*2**z),tileY=(lat,z)=>{const r=lat*Math.PI/180;return Math.floor((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*2**z)};
+  const byZ=[];for(let z=11;z<=15;z++){const a=[],x0=tileX(bb[1],z),x1=tileX(bb[3],z),y0=tileY(bb[2],z),y1=tileY(bb[0],z);for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++)a.push({z,x,y});byZ.push(a)}
+  while(byZ.length>2&&byZ.reduce((q,a)=>q+a.length,0)>2500)byZ.pop();
+  const tasks=byZ.flat();tileTotal=tasks.length;let nx=0;upd();
+  const worker=async()=>{while(nx<tasks.length){const t=tasks[nx++],key=BL.normal[0].replace('{z}',t.z).replace('{x}',t.x).replace('{y}',t.y);
+   try{if(await tileGet(key))tileOk++;else{let r=null;for(let a=0;a<2&&!r;a++){try{const c=new AbortController(),tm=setTimeout(()=>c.abort(),12000),x=await fetch(key,{mode:'cors',signal:c.signal});clearTimeout(tm);if(x.ok)r=await x.blob()}catch(e){}}if(r){await tilePut(key,r);tileOk++}}}catch(e){}
+   tileDone++;if(tileDone%6==0||tileDone==tileTotal)upd()}};
+  await Promise.all(Array.from({length:12},worker))})();
+ await Promise.allSettled([roads,tiles]);
+ dlOn=0;clearAreaRect();$('#od').disabled=false;$('#odpg').style.width=ok||tileOk?'100%':'0%';
+ $('#ost').textContent=ok?'نقشه آفلاین ذخیره شد؛ '+fa(storedWays)+' بخش جاده و '+fa(tileOk)+' تصویر نقشه'+(partial?' (بعضی بخش‌های جاده دریافت نشد؛ دانلود را دوباره انجام دهید)':''):'دانلود جاده‌ها ناموفق بود؛ اتصال اینترنت را بررسی کنید یا محدوده کوچک‌تری انتخاب کنید';
+ renderOff();toast(ok?'نقشه آفلاین ذخیره شد':'دانلود نقشه انجام نشد')}
+$('#oi').onclick=downloadIran;
+$('#od').onclick=()=>{const c=map.getCenter(),r=+$('#oa').value,dl=r/111320,dn=r/(111320*Math.cos(c.lat*Math.PI/180));downloadBounds([c.lat-dl,c.lng-dn,c.lat+dl,c.lng+dn],'')};
+window.addEventListener('offline',()=>{setBase('off',1);toast(OA.length?'اینترنت قطع شد؛ نقشه آفلاین و جاده‌های ذخیره‌شده فعال شدند':'اینترنت قطع شد؛ نقشه آفلاین فعال شد')});
+window.addEventListener('online',()=>{setBase(S.bl=='off'?'normal':(BL[S.bl]?S.bl:'normal'),1);toast('اینترنت وصل شد؛ نقشه آنلاین فعال شد')});
 /* ---------- مسیریابی ---------- */
 const J=async(u,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms||10000);try{const r=await fetch(u,{signal:c.signal});if(r.status==403||r.status>=429)throw 0;return await r.json()}finally{clearTimeout(t)}};
 const RS=['https://router.project-osrm.org/route/v1/driving/','https://routing.openstreetmap.de/routed-car/route/v1/driving/'];
@@ -396,11 +493,11 @@ const mk=rt=>{const st=[],L=rt.legs.length;
  const pts=rt.geometry.coordinates.map(c=>[c[1],c[0]]),an=[];rt.legs.forEach(l=>{if(l.annotation&&l.annotation.speed)an.push(...l.annotation.speed)});
  return{pts,st,d:rt.distance,T:rt.duration,sp:an.length==pts.length-1?an:null}};
 const FOOTRS=['https://routing.openstreetmap.de/routed-foot/route/v1/driving/'];
-async function getRoutes(a,b){
+async function getRoutes(a,b,ms){
  let got=0;
  if(navigator.onLine===false){const o=offRoute(a,b);if(o)return[o]}
  for(const base of (S.mode=='foot'?FOOTRS:RS)){try{
-  const j=await J(base+a[1]+','+a[0]+';'+b[1]+','+b[0]+'?overview=full&geometries=geojson&steps=true&annotations=speed&alternatives=3',12000);got=1;
+  const j=await J(base+a[1]+','+a[0]+';'+b[1]+','+b[0]+'?overview=full&geometries=geojson&steps=true&annotations=speed&alternatives=3',ms||12000);got=1;
   if(j.routes&&j.routes.length)return j.routes.map(mk)
  }catch(e){}}
  if(!got){const o=offRoute(a,b);if(o){toast('مسیریابی آفلاین با نقشه ذخیره‌شده');return[o]}}
@@ -415,7 +512,7 @@ async function plan(nf){
  if(!a){if(gpsErr)gpsNote(1);$('#ci').textContent='مقصد انتخاب شد. GPS هنوز موقعیت را پیدا نکرده؛ برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید.';return}
  $('#ci').textContent='مقصد انتخاب شد. در حال مسیریابی…';
  let r;try{r=await vet(await getRoute(a,dst),a,dst)}catch(e){if(my==pid)$('#ci').textContent=e=='NR'?'بین این دو نقطه مسیری پیدا نشد؛ نقطه دیگری را لمس کنید.':'اتصال به سرور مسیریابی برقرار نشد؛ اینترنت را بررسی کنید. برای مسیریابی بدون اینترنت، نقشه آفلاین محدوده را در تنظیمات دانلود کنید.';return}
- if(my!=pid)return;route=r;draw();if(!nf)fit();follow=0;
+ if(my!=pid)return;route=r;draw();if(!nf)fit();if(nav){cur=1;spoken={};follow=1;simD=0;manualDrive=0;$('#scrRange').value=0;$('#scrCar').style.left='96%'}else follow=0;
  $('#ci').textContent=fD(r.d)+'، '+fT(r.T*tfac())+(tfac()>1.05?' (با ترافیک تخمینی)':'');$('#st').style.display=''}
 $('#po').onclick=()=>{if(org){org=null;pinsDraw();plan()}else{pickOrg=1;toast('برای انتخاب مبدا، انگشت را یک ثانیه روی نقشه نگه دارید')}};
 $('#cx').onclick=()=>stopNav('مسیریابی لغو شد');$('#ft').onclick=fit;
@@ -434,7 +531,7 @@ const OV=['https://overpass-api.de/api/interpreter','https://overpass.kumi.syste
 const PT={hospital:'🏥',clinic:'🏥',pharmacy:'💊',fuel:'⛽',charging_station:'🔌',restaurant:'🍴',fast_food:'🍕',cafe:'☕',bar:'🍹',school:'🎓',college:'🎓',university:'🎓',kindergarten:'🏫',bank:'🏦',atm:'💵',cinema:'🎬',theatre:'🎭',library:'📚',place_of_worship:'🕌',police:'🚓',fire_station:'🚒',post_office:'📮',parking:'🅿️',bus_station:'🚌',townhall:'🏛️',courthouse:'⚖️',public_building:'🏛️',community_centre:'🏛️',toilets:'🚻',taxi:'🚕',supermarket:'🛒',bakery:'🥖',mall:'🛍️',convenience:'🏪',clothes:'👕',department_store:'🛍️',museum:'🏛️',attraction:'📷',hotel:'🏨',guest_house:'🏨',viewpoint:'📷',gallery:'🖼️',zoo:'🦁',park:'🌳',playground:'🎠',stadium:'🏟️',sports_centre:'🏀',government:'🏛️',administrative:'🏛️',station:'🚉',subway_entrance:'🚇'};
 let pois=[],pbox=null,ptm=0;
 function poi(){clearTimeout(ptm);ptm=setTimeout(async()=>{
- if(!S.pv||map.getZoom()<15){gp.clearLayers();return}
+ if(manualScrub)return;if(!S.pv||map.getZoom()<15){gp.clearLayers();return}
  const bd=map.getBounds();
  if(!pbox||!pbox.contains(bd)){const bb=bd.pad(.6),b=[bb.getSouth(),bb.getWest(),bb.getNorth(),bb.getEast()].join(',');
   const q='[out:json][timeout:25];(nwr["amenity"~"^(hospital|clinic|pharmacy|fuel|charging_station|restaurant|fast_food|cafe|bar|school|college|university|kindergarten|bank|atm|cinema|theatre|library|place_of_worship|police|fire_station|post_office|parking|bus_station|townhall|courthouse|public_building|community_centre|toilets|taxi)$"]('+b+');nwr["shop"~"^(supermarket|bakery|mall|convenience|clothes|department_store)$"]('+b+');nwr["tourism"~"^(museum|attraction|hotel|guest_house|viewpoint|gallery|zoo)$"]('+b+');nwr["leisure"~"^(park|playground|stadium|sports_centre)$"]('+b+');nwr["office"~"^(government|administrative)$"]('+b+');nwr["railway"~"^(station|subway_entrance)$"]('+b+'););out center 300;';
@@ -498,7 +595,7 @@ async function search(v,live){
  else{for(const q of V){if(it.length>=4||my!=sqn)break;await nom(q)}if(!it.length&&my==sqn)for(const q of V.slice(0,2)){await pho(q)}}
  if(my==sqn&&it.length<6){if(live)await pho(V[0],1);else await nom(V[0],1)}
  if(my!=sqn)return;
- const fin=hs.concat(it.filter(x=>!hs.some(y=>near2(y.p,x.p))));if(!ok)fin.push(...offSearch(v));
+ const fin=hs.concat(it.filter(x=>!hs.some(y=>near2(y.p,x.p))));fin.push(...offSearch(v));
  rend(fin,fin.length?'':(ok?'نتیجه‌ای پیدا نشد؛ نام را کامل‌تر یا همراه نام شهر بنویسید.':'اتصال به سرور جستجو برقرار نشد؛ اینترنت را بررسی کنید.'))}
 const askText=(t,def)=>new Promise(r=>{$('#dt').textContent=t;$('#dc').innerHTML='<input id="dn2" class="in" style="margin-top:8px">';$('#dn2').value=def||'';
  $('#dy').textContent='ذخیره';$('#dn').textContent='لغو';$('#dn').style.display='';$('#dlg').style.display='flex';
@@ -518,9 +615,11 @@ $('#q').onkeydown=e=>{if(e.key=='Enter'||e.keyCode==13)$('#go').click()};
 
 /* ---------- صدا ---------- */
 let ch=Promise.resolve();
-const say=ks=>{if(S.mute)return;ch=ch.then(()=>play(ks)).catch(()=>{})};
-async function play(ks){for(const k of ks){const u=C[k];
- if(u)await new Promise(r=>{const a=new Audio(u);a.volume=1;a.playbackRate=S.rate||1.5;a.onended=a.onerror=r;a.play().catch(r);setTimeout(r,8000)});
+let audioToken=0,activeAudio=null;
+const cancelGuide=()=>{audioToken++;try{if(activeAudio){activeAudio.pause();activeAudio.currentTime=0;activeAudio=null}}catch(e){}try{speechSynthesis.cancel()}catch(e){}ch=Promise.resolve()};
+const say=ks=>{if(S.mute||manualScrub)return;const tok=audioToken;ch=ch.then(()=>tok===audioToken?play(ks,tok):null).catch(()=>{})};
+async function play(ks,tok=audioToken){for(const k of ks){if(tok!==audioToken||manualScrub)return;const u=C[k];
+ if(u)await new Promise(r=>{const a=new Audio(u);activeAudio=a;a.volume=1;a.playbackRate=S.rate||1.5;a.onended=a.onerror=()=>{if(activeAudio===a)activeAudio=null;r()};a.play().catch(r);setTimeout(r,8000)});
  else if(S.tts&&window.speechSynthesis)await new Promise(r=>{const z=new SpeechSynthesisUtterance(SL.find(x=>x[0]==k)[1]);z.lang='fa-IR';z.volume=1;z.rate=S.rate||1.5;z.onend=z.onerror=r;speechSynthesis.speak(z);setTimeout(r,6000)})}}
 
 /* ---------- طرح‌ها ---------- */
@@ -599,7 +698,11 @@ async function vet(r,a,b){
   for(const set of [[[bb[0],bb[1]],[bb[0],bb[3]],[bb[2],bb[1]],[bb[2],bb[3]]],[[bb[0],mx],[bb[2],mx],[my,bb[1]],[my,bb[3]]]]){
    const c=(await viaRoutes(a,b,set)).filter(ok).sort((x,y)=>x.T-y.T)[0];if(c)return c}}
  toast('مسیری بیرون از محدوده‌های غیرمجاز پیدا نشد؛ مسیر اصلی نمایش داده شد');return r}
-async function newRoute(){rr=1;simD=0;try{const rs=await getRoutes(pos,dst);route=await vet(rs[0],pos,dst);draw();cur=1;spoken={};off=0;skip();say(['reroute'])}catch(e){toast('مسیر جدید پیدا نشد')}rr=0}
+let rrId=0;
+async function newRoute(){rr=1;const my=++rrId,ap=(r,v)=>{route=r;draw();cur=1;spoken={};off=0;offSaid=0;simD=0;scrub.value=0;setScrCar(0);skip();if(v)say(['reroute'])};
+ let did=0;try{const o=offRoute(pos,dst);if(o){ap(o,1);did=1}}catch(e){} // saved maps: instant correction, then refine online
+ try{const rs=await getRoutes(pos,dst,6000),r=await vet(rs[0],pos,dst);if(my===rrId&&nav&&!(r.off&&did))ap(r,!did)}catch(e){if(!did)toast('مسیر جدید پیدا نشد')}
+ rr=0}
 async function slow(av){asking=1;say(['slow']);noAsk=Date.now()+6e5;
  try{const a=(await getRoutes(pos,dst))[1];
   if(a&&await ask('به نظر می‌رسد در ترافیک هستید (میانگین سرعت '+fa(Math.round(av*3.6))+' کیلومتر بر ساعت). مسیر دیگری به طول '+fD(a.d)+' و حدود '+fT(a.T)+' (بدون احتساب ترافیک) وجود دارد. تغییر مسیر؟','بله، تغییر بده','نه، همین مسیر')){route=await vet(a,pos,dst);draw();cur=1;spoken={};off=0;skip();say(['reroute'])}}catch(e){}
@@ -608,11 +711,11 @@ function rotate(){setRot(rot+((((-heading-rot+540)%360)+360)%360)-180,1)}
 function proj(p,a,b){const k=Math.cos(p[0]*Math.PI/180),px=p[1]*k,py=p[0],ax=a[1]*k,ay=a[0],dx=b[1]*k-ax,dy=b[0]-ay,l=dx*dx+dy*dy;
  let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=Math.max(0,Math.min(1,t));return{d:Math.hypot(px-ax-t*dx,py-ay-t*dy)*111320,pt:[ay+t*dy,(ax+t*dx)/k]}}
 const brg=(a,b)=>{const k=Math.cos(a[0]*Math.PI/180);return(Math.atan2((b[1]-a[1])*k,b[0]-a[0])*180/Math.PI+360)%360};
-function snapP(){const pts=route.pts;let bd=1e9,bi=0,bq=null,th=Math.max(40,Math.min(200,gAcc||0));
+function snapP(lite){const pts=route.pts;let bd=1e9,bi=0,bq=null,th=Math.max(35,Math.min(200,gAcc||0));
  const sc=(a,b)=>{for(let i=a;i<b;i++){const q=proj(pos,pts[i],pts[i+1]);if(q.d<bd){bd=q.d;bi=i;bq=q}}};
- sc(Math.max(0,ri-8),Math.min(pts.length-1,ri+80));if(bd>(th=Math.max(40,Math.min(200,gAcc||0))))sc(0,pts.length-1);sdist=bd;
+ sc(Math.max(0,ri-8),Math.min(pts.length-1,ri+80));if(bd>(th=Math.max(35,Math.min(200,gAcc||0))))sc(0,pts.length-1);sdist=bd;
  if(bq&&bd<th){sn=bq.pt;ri=bi;let j=bi+1;while(j<pts.length-1&&dist(pts[bi],pts[j])<20)j++;heading=brg(pts[bi],pts[j]);
-  if(rpl){const rm=[sn].concat(pts.slice(bi+1));rpl[0].setLatLngs(rm);rpl[1].setLatLngs(rm)}}
+  if(rpl&&!lite){const rm=[sn].concat(pts.slice(bi+1));rpl[0].setLatLngs(rm);rpl[1].setLatLngs(rm)}}
  else sn=null;
  if(me)me.setLatLng(sn||pos);const a=$('#ar');if(a)a.style.transform='rotate('+heading+'deg)'}
 /* ---------- فعال ماندن با خاموش شدن صفحه (تا حد امکان) ---------- */
@@ -637,17 +740,15 @@ function tfac(){if(!S.tf||S.mode=='foot')return 1;const c=pos?{lat:pos[0],lng:po
  if(w==5)return h>=16&&h<19?1.15:1;
  if(w==4)return h>=11&&h<13?1.2:h>=17&&h<20?1.35:1;
  return h>=7&&h<9.5?1.5:h>=12&&h<14?1.2:h>=16.5&&h<20?1.6:h>=20&&h<21.5?1.15:1}
-let simP=0;
+let simP=0,navInfo=null;
 async function simAsk(){const y=await ask('GPS متصل نیست. حرکت خودرو روی مسیر شبیه‌سازی شود؟ سرعت بر اساس محدودیت سرعت مسیر و ترافیک تخمینی است و با دکمه توقف می‌توانید آن را متوقف و دوباره ادامه دهید.','بله، شروع حرکت','نه، فعلاً ثابت بماند');simInit(y)}
 function simUi(){$('#sb').textContent=simP?(simD>0?'▶ ادامه حرکت':'▶ شروع حرکت'):'⏸ توقف'}
 function simInit(run,from){simOff();simP=run?0:1;simD=from||0;$('#sb').style.display='';simUi();
- simT=setInterval(()=>{if(!nav||!route||Date.now()-lastFix<5000)return simOff();if(simP)return;
-  const pts=route.pts;if(!route.cum){route.cum=[0];for(let i=0;i<pts.length-1;i++)route.cum.push(route.cum[i]+dist(pts[i],pts[i+1]))}
-  const cum=route.cum;let lo=0,hi=pts.length-2;while(lo<hi){const m=(lo+hi+1)>>1;if(cum[m]<=simD)lo=m;else hi=m-1}
-  const v=Math.max(2.5,((route.sp?route.sp[Math.min(lo,route.sp.length-1)]:11)||11)/tfac());simD+=v;
-  let j=lo;while(j<pts.length-2&&cum[j+1]<simD)j++;
-  const a=pts[j],b=pts[j+1],t=Math.min(1,(simD-cum[j])/((cum[j+1]-cum[j])||1));
-  onPos({coords:{latitude:a[0]+(b[0]-a[0])*t,longitude:a[1]+(b[1]-a[1])*t,accuracy:5,speed:v,heading:brg(a,b)},manual:1})},1000)}
+ simT=setInterval(()=>{if(!nav||!route||(!manualDrive&&Date.now()-lastFix<5000))return simOff();if(simP)return;
+  const pts=route.pts,cum=routeCum(),total=cum[cum.length-1]||1,lo=segAt(cum,simD);
+  const v=Math.max(2.5,((route.sp?route.sp[Math.min(lo,route.sp.length-1)]:11)||11)/tfac());simD=Math.min(total,simD+v);const prog=Math.min(1000,Math.round(simD/total*1000));scrub.value=prog;setScrCar(prog);
+  const j=segAt(cum,simD),a=pts[j],b=pts[j+1],t=Math.min(1,(simD-cum[j])/((cum[j+1]-cum[j])||1));ri=j;
+  onPos({coords:{latitude:a[0]+(b[0]-a[0])*t,longitude:a[1]+(b[1]-a[1])*t,accuracy:5,speed:v,heading:brg(a,b)},manual:1,prog:simD})},1000)}
 let c3ok=0,c3bad=0,car3=null,wh3=[],ren3=null,scn3=null,cam3=null,raf3=0;
 function loadThree(){return new Promise((ok,no)=>{if(window.THREE)return ok();const t=document.createElement('script');t.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';t.onload=()=>ok();t.onerror=no;document.head.appendChild(t)})}
 async function init3(){if(c3ok||c3bad)return;
@@ -666,61 +767,106 @@ function draw3(){if(!c3ok)return;car3.rotation.z=-(heading+rot)*Math.PI/180;wh3.
 function loop3(){if(!document.body.classList.contains('c3')){raf3=0;return}draw3();raf3=requestAnimationFrame(loop3)}
 function simFrom(){if(!route.cum){route.cum=[0];for(let i=0;i<route.pts.length-1;i++)route.cum.push(route.cum[i]+dist(route.pts[i],route.pts[i+1]))}const i=Math.min(ri,route.cum.length-1);return route.cum[i]+(sn?dist(route.pts[i],sn):0)}
 function autoSim(msg){if(!nav||!route||simT)return;toast(msg);say(['gpsoff']);gLostSaid=1;simInit(true,simFrom())}
-setInterval(()=>{if(nav&&route&&!simT&&lastFix&&Date.now()-lastFix>8000)autoSim('GPS قطع شد؛ ادامه مسیر بدون GPS تا اتصال دوباره')},2000);
+setInterval(()=>{if(nav&&route&&S.mode=='car'&&(!lastFix||Date.now()-lastFix>gStale()))$('#scrub').style.display='flex';else if(nav)$('#scrub').style.display='none';if(nav&&route&&!simT&&lastFix&&Date.now()-lastFix>gStale())autoSim('GPS قطع شد؛ ادامه مسیر بدون GPS تا اتصال دوباره')},1500);
 function simOff(){if(simT){clearInterval(simT);simT=0}$('#sb').style.display='none'}
 $('#sb').onclick=()=>{simP=simP?0:1;if(simP)$('#spd b').textContent=0;simUi()};
+// Manual progress scrubber is only for GPS-less car navigation; seeking never speaks.
+const scrub=$('#scrRange');
+function routeCum(){if(!route)return[0];if(!route.cum){route.cum=[0];for(let i=0;i<route.pts.length-1;i++)route.cum.push(route.cum[i]+dist(route.pts[i],route.pts[i+1]))}return route.cum}
+function routeCD(){if(!route)return[0];if(route.cd)return route.cd;const cum=routeCum(),pts=route.pts,st=route.st,cd=[];let j=0;
+ st.forEach((s,k)=>{if(!k){cd.push(0);return}if(k==st.length-1){cd.push(cum[cum.length-1]);return}
+  let bj=j,bd=1e12;for(let i=j;i<pts.length;i++){const q=dist(pts[i],s.p);if(q<bd){bd=q;bj=i;if(q<1.5)break}}j=bj;cd.push(cum[bj])});
+ return route.cd=cd}
+function segAt(cum,x){let lo=0,hi=cum.length-2;while(lo<hi){const m=(lo+hi+1)>>1;if(cum[m]<=x)lo=m;else hi=m-1}return Math.max(0,lo)}
+function setScrCar(v){const r=scrub.getBoundingClientRect(),b=$('#scrub').getBoundingClientRect();$('#scrCar').style.left=r.width?(r.left-b.left+14+(r.width-28)*(1-v/1000))+'px':(96-92*v/1000)+'%'}
+function seekRoute(v){if(!route||!nav||S.mode!='car')return;const cum=routeCum(),total=cum[cum.length-1]||1,target=total*v/1000,i=segAt(cum,target),
+ t=Math.min(1,(target-cum[i])/((cum[i+1]-cum[i])||1)),a=route.pts[i],b=route.pts[i+1],p=[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+ manualScrub=1;cancelGuide();simOff();simD=target;follow=1;ri=i;off=0;hist=[];
+ const cd=routeCD();cur=1;while(cur<route.st.length-1&&cd[cur]<target-25)cur++;skip();spoken={};
+ setScrCar(v);onPos({coords:{latitude:p[0],longitude:p[1],accuracy:8,speed:0,heading:brg(a,b)},manual:1,lite:1,prog:target});scrubSettle(p)}
+scrub.addEventListener('input',()=>{manualScrub=1;cancelGuide();seekRoute(+scrub.value)});
+let scrubT=0,scrubLast=0,scrubP=null;
+function settleNow(){if(!route||!nav||!scrubP)return;snapP();map.panTo(scrubP,{animate:false})}
+function scrubSettle(p){scrubP=p;clearTimeout(scrubT);const n=Date.now();if(n-scrubLast>350){scrubLast=n;settleNow()}else scrubT=setTimeout(()=>{scrubLast=Date.now();settleNow()},350)}
+function scrubDone(){if(!route||!nav||S.mode!='car')return;clearTimeout(scrubT);settleNow();manualScrub=0;manualDrive=1;follow=1;off=0;offSaid=0;zst=null;zw={};hist=[];simInit(true,simD);$('#sb').style.display='';simUi();resyncVoice()}
+scrub.addEventListener('change',scrubDone);
+// quick buttons: tap = 1 km, hold = 10 km every second
+function stepBy(m){if(!route||!nav||S.mode!='car')return;const cum=routeCum(),tot=cum[cum.length-1]||1,v=Math.max(0,Math.min(1000,(simD+m)/tot*1000));scrub.value=v;seekRoute(v)}
+function holdBtn(id,dir){const b=$(id);let t0=0,iv=0,held=0;
+ const end=()=>{clearTimeout(t0);if(iv){clearInterval(iv);iv=0;scrubDone()}};
+ b.addEventListener('pointerdown',e=>{e.preventDefault();held=0;t0=setTimeout(()=>{held=1;stepBy(dir*10000);iv=setInterval(()=>stepBy(dir*10000),1000)},450)});
+ b.addEventListener('pointerup',()=>{if(!held){clearTimeout(t0);stepBy(dir*1000);scrubDone()}end();held=0});
+ b.addEventListener('pointercancel',end);b.addEventListener('pointerleave',end)}
+holdBtn('#scrFw',1);holdBtn('#scrBk',-1);
+function resyncVoice(){const st=route.st,cd=routeCD();skip();const s=st[cur];if(!s)return;spoken={};
+ const d=Math.max(0,cd[cur]-simD),K=dirKey(s),lv=[[2000,'d2000'],[1000,'d1000'],[500,'d500'],[200,'d200'],[100,'d100'],[45,'']];
+ if(K=='arrive'){if(d<=300){spoken[8]=1;say(['near'])}else spoken[9]=1;return}
+ if(d>2500){spoken[9]=1;say(['keep']);return}
+ let f=lv[0],e=1e9;lv.forEach(x=>{const q=Math.abs(d-x[0]);if(q<e){e=q;f=x}});
+ lv.forEach(x=>{if(x[0]>=f[0])spoken[x[0]]=1});say(guideKs(f,s,K))}
+
 /* ---------- ناوبری ---------- */
+let manualScrub=0,manualDrive=0;
 const skip=()=>{while(cur<route.st.length-1&&/^(new name|continue|exit roundabout|exit rotary|notification)$/.test(route.st[cur].t))cur++};
 function dirKey(s){if(s.t=='arrive')return'arrive';if(/^(roundabout|rotary)/.test(s.t))return'roundabout';
  return({uturn:'uturn','sharp left':'sharp_left','sharp right':'sharp_right','slight left':'slight_left','slight right':'slight_right',left:'left',right:'right'})[s.m]||'straight'}
 $('#st').onclick=()=>{
  if(!route)return;if(!pos){const o=org||route.pts[0];onPos({coords:{latitude:o[0],longitude:o[1],accuracy:5,speed:null,heading:null},manual:1})}
- init3();nav=1;cur=1;spoken={};off=0;follow=1;pitch=0;ri=0;sn=null;adHide();skip();
- ['#card','#res'].forEach(s=>$(s).style.display='none');document.body.classList.add('nv');$('#top').classList.remove('open');setRot(rot,1);hist=[];noAsk=Date.now()+12e4;pinsDraw();if(navigator.onLine===false&&OA.length)setBase('off',1);else if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase('normal',1);$('#nav').style.display=$('#bar').style.display='flex';
+ init3();nav=1;manualScrub=0;scrub.value=0;$('#scrCar').style.left='96%';manualDrive=0;cur=1;spoken={};off=0;follow=1;pitch=0;ri=0;sn=null;adHide();skip();
+ ['#card','#res'].forEach(s=>$(s).style.display='none');document.body.classList.add('nv');$('#navModes').style.display='none';$('#top').classList.remove('open');setRot(rot,1);hist=[];noAsk=Date.now()+12e4;pinsDraw();if(navigator.onLine===false)setBase('off',1);else if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase('normal',1);$('#nav').style.display=$('#bar').style.display='flex';updateNavModes();
  wake();keepOn();zst=null;zw={};offSaid=0;
- map.setView(pos,17);say(['depart']);if(S.tts)tts('مسیر '+fD(route.d)+' و حدود '+fT(route.T)+' است');if(Date.now()-lastFix>12e3)simAsk();tick({coords:{}})};
+ map.setView(pos,17);say(['depart']);if(S.tts)tts('مسیر '+fD(route.d)+' و حدود '+fT(route.T)+' است');if(Date.now()-lastFix>Math.max(12e3,gStale()))simAsk();tick({coords:{}})};
+document.querySelectorAll('#navModes button').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.mode;if(!m||m===S.mode)return;S.mode=m;save();document.body.classList.toggle('fm',m==='foot');document.querySelectorAll('#navModes button').forEach(x=>x.classList.toggle('active',x.dataset.mode===m));if(dst){if(nav){const old=route;route=null;plan(true);if(!route)route=old}else plan()}}));
+function updateNavModes(){document.querySelectorAll('#navModes button').forEach(x=>x.classList.toggle('active',x.dataset.mode===S.mode))}
 $('#sp').onclick=()=>stopNav('مسیریابی لغو شد');
 function stopNav(msg){
- pid++;okZ={};sMode=0;simOff();adHide();pitch=0;sn=null;rpl=null;ri=0;$('#cs').textContent='';$('#q').placeholder='جستجوی مقصد…';$('#q').value='';qs();nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();drawZones();
- ['#nav','#bar','#card'].forEach(s=>$(s).style.display='none');document.body.classList.remove('nv','c3');$('#top').classList.remove('open');setRot(0,0);if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase(S.bl,1);$('#top').style.display='flex';
+ navInfo=null;pid++;okZ={};sMode=0;simOff();adHide();pitch=0;sn=null;rpl=null;ri=0;$('#cs').textContent='';$('#q').placeholder='جستجوی مقصد…';$('#q').value='';qs();nav=0;route=dst=org=null;lines.clearLayers();pins.clearLayers();drawZones();
+ ['#nav','#bar','#card','#scrub'].forEach(s=>$(s).style.display='none');manualDrive=0;manualScrub=0;document.body.classList.remove('nv','c3');$('#navModes').style.display='';$('#top').classList.remove('open');setRot(0,0);if(S.bl&&BL[S.bl]&&S.bl!='normal')setBase(S.bl,1);$('#top').style.display='flex';
  try{wl&&wl.release()}catch(e){}wl=null;keepOff();try{speechSynthesis.cancel()}catch(e){}$('#res').style.display='none';if(msg)toast(msg)}
 async function tick(p){
- const st=route.st;if(cur>=st.length)return;snapP();
- let s=st[cur],d=dist(pos,s.p);s.min=Math.min(s.min??1e9,d);
- if(follow){map.panTo(sn||pos,{duration:.9,easeLinearity:1});if(!navRot){nUp?setRot(0,1):rotate()}}
+ const st=route.st;if(cur>=st.length)return;snapP(p&&p.lite);
+ const cd=routeCD(),cum=routeCum(),tot=cum[cum.length-1]||1,man=!!(p&&p.manual),ci=Math.min(ri,cum.length-2);
+ let pg=p&&p.prog!=null?p.prog:(sn?cum[ci]+dist(route.pts[ci],sn):null);const on=pg!=null;
+ if(on){pg=Math.max(0,Math.min(tot,pg));const c0=cur;while(cur<st.length-1&&cd[cur]<pg-25)cur++;if(cur!==c0){skip();spoken={}}}
+ let s=st[cur],d=on?Math.max(0,cd[cur]-pg):dist(pos,s.p);s.min=Math.min(s.min??1e9,d);
+ if(follow&&!(p&&p.lite)){map.panTo(sn||pos,{duration:.9,easeLinearity:1});if(!navRot){nUp?setRot(0,1):rotate()}}
  let md=sdist;
- off=md>Math.max(70,Math.min(300,gAcc*1.5))?off+1:0;if(off>=2&&!offSaid){offSaid=1;say(['offroute'])}if(!off)offSaid=0;
- if(off>=3&&!rr&&Date.now()-lastRR>15000){lastRR=Date.now();newRoute();return}
+ const thr=Math.max(35,Math.min(120,(gAcc||0)*1.3));
+ off=md>thr?off+1:0;if((off>=2||md>thr*2.2)&&!offSaid){offSaid=1;say(['offroute'])}if(!off)offSaid=0;
+ if((off>=2||md>thr*2.5)&&!rr&&Date.now()-lastRR>6000){lastRR=Date.now();newRoute();return}
  const arr=s.t=='arrive';
  if(d<(arr?40:30)||(!arr&&s.min<80&&d>s.min+25)){
-  if(arr){nav=0;say(['arrive']);toast('به مقصد رسیدید 🏁');setTimeout(()=>stopNav('مسیریابی به پایان رسید'),5000);return}
-  cur++;skip();spoken={};s=st[cur];d=dist(pos,s.p)}
+  if(arr){nav=0;cancelGuide();simOff();$('#scrub').style.display='none';say(['arrive']);toast('به مقصد رسیدید 🏁');setTimeout(()=>stopNav('مسیریابی به پایان رسید'),1800);return}
+  cur++;skip();spoken={};s=st[cur];d=on?Math.max(0,cd[cur]-pg):dist(pos,s.p)}
  const K=dirKey(s);
  if(K!='arrive'){
   const lv=[[2000,'d2000'],[1000,'d1000'],[500,'d500'],[200,'d200'],[100,'d100'],[45,'']],f=lv.filter(x=>d<=x[0]).pop();
   if(f&&!spoken[f[0]]){lv.forEach(x=>{if(x[0]>=f[0])spoken[x[0]]=1});
-   const ks=f[1]?[f[1],K]:[K];if(K=='roundabout'&&s.x>=1&&s.x<=4)ks.push('ex'+s.x);
-   let j=cur+1;while(j<st.length-1&&/^(new name|continue|exit roundabout|exit rotary|notification)$/.test(st[j].t))j++;
-   const n2=st[j];if(f[0]<=200&&n2&&n2.t!='arrive'&&dist(s.p,n2.p)<250)ks.push('then',dirKey(n2));
-   say(ks)}
+   say(guideKs(f,s,K))}
   if(d>3000&&!spoken[9]){spoken[9]=1;say(['keep'])}}
  else if(d<=300&&!spoken[8]){spoken[8]=1;say(['near'])}
  const lab=SL.find(x=>x[0]==K)[1];$('#ni').textContent=ICO[K];$('#nt').textContent=s.n||lab;$('#nd').textContent=fD(d)+(s.n?'، '+lab:'')+(K=='roundabout'&&s.x?'، خروجی '+fa(s.x):'');
  {let k=cur-1;while(k>0&&!st[k].n)k--;const cn=st[Math.max(k,0)].n;$('#cs').textContent=cn?'🛣 '+cn:''}
- let rem=d;for(let i=cur;i<st.length;i++)rem+=st[i].d;
+ let rem=on?Math.max(0,tot-pg):d;if(!on)for(let i=cur;i<st.length;i++)rem+=st[i].d;
  const now=Date.now();while(hist.length&&now-hist[0][0]>18e4)hist.shift();
  const win=hist.length?now-hist[0][0]:0;let f=1,av=0;
- if(hist.length>3&&win>6e4){let m=0;for(let i=1;i<hist.length;i++)m+=dist(hist[i-1][1],hist[i][1]);av=m/(win/1e3);f=1+(Math.min(3,Math.max(1,route.d/route.T/Math.max(av,.5)))-1)*Math.min(1,win/18e4)}
+ if(!man&&hist.length>3&&win>6e4){let m=0;for(let i=1;i<hist.length;i++)m+=dist(hist[i-1][1],hist[i][1]);av=m/(win/1e3);f=1+(Math.min(3,Math.max(1,route.d/route.T/Math.max(av,.5)))-1)*Math.min(1,win/18e4)}
  let v=p.coords.speed;if(v==null&&hist.length>1){const a=hist[hist.length-2],b=hist[hist.length-1];v=dist(a[1],b[1])/Math.max(1,(b[0]-a[0])/1e3)}
  const sp=v>.8?Math.round(v*3.6):0,eta=rem*route.T/route.d*Math.max(f,tfac());$('#spd b').textContent=sp;lastSp=sp;
  const lim=S.mode!='foot'&&route.sp&&route.sp[Math.min(ri,route.sp.length-1)];$('#lim').textContent=lim?Math.round(lim*3.6/5)*5:'';$('#lim').style.display=lim?'flex':'none';
  if(!S.sl&&S.sa&&lim&&sp>lim*3.6+10&&now>spN){spN=now+4e4;say(['speed'])}
  {const on3=nav&&follow&&c3ok&&S.mode!='foot';document.body.classList.toggle('c3',!!on3);if(on3&&!raf3)loop3()}
  if(S.sl>0&&sp>S.sl+3&&now>spN){spN=now+4e4;say(['speed'])}
- zvoice();
- $('#bi').innerHTML='<b>'+fD(rem)+'، '+fT(eta)+'</b><small>رسیدن '+new Date(now+eta*1e3).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+(f>1.5?'، ⚠ ترافیک سنگین':f>1.2?'، ترافیک':'')+'</small>';
- if(f>2&&win>15e4&&rem>3000&&!asking&&now>noAsk)slow(av)}
+ if(!(p&&p.lite))zvoice();
+ navInfo={rem,eta,f};drawBar();
+ if(!man&&f>2&&win>15e4&&rem>3000&&!asking&&now>noAsk)slow(av)}
 
+function guideKs(f,s,K){const st=route.st,ks=f[1]?[f[1],K]:[K];if(K=='roundabout'&&s.x>=1&&s.x<=4)ks.push('ex'+s.x);
+ let j=cur+1;while(j<st.length-1&&/^(new name|continue|exit roundabout|exit rotary|notification)$/.test(st[j].t))j++;
+ const n2=st[j];if(f[0]<=200&&n2&&n2.t!='arrive'&&dist(s.p,n2.p)<250)ks.push('then',dirKey(n2));return ks}
+function drawBar(){const n=navInfo;if(!nav||!n)return;
+ $('#bi').innerHTML='<b>'+fD(n.rem)+'، '+fT(n.eta)+'</b><small>رسیدن '+new Date(Date.now()+n.eta*1e3).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+(n.f>1.5?'، ⚠ ترافیک سنگین':n.f>1.2?'، ترافیک':'')+'</small>'}
+setInterval(drawBar,1000);
 /* ---------- دکمه‌ها و تنظیمات ---------- */
 const norm=n=>n.replace(/\.[^.]+$/,'').toLowerCase().replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/ي/g,'ی').replace(/ك/g,'ک').replace(/[\u200c_\-.()+]+/g,' ').replace(/\s+/g,' ').trim();
 const ZT='(طرح ?ترافیک|traffic ?zone)',ZA='(آلودگی|air|pollution|lez)',NR='(نزدیک|near|approach|soon|ahead)',IN='(وارد|ورود|enter|entry)',OUT='(خارج|خروج|exit|leave|out)';
@@ -761,9 +907,9 @@ async function updGd(){let ps='—';try{ps=(await navigator.permissions.query({n
   ER={0:'بدون خطا',1:'مجوز موقعیت مکانی داده نشده',2:'موقعیت در دسترس نیست (منبع GPS یا سیگنال وجود ندارد)',3:'زمان انتظار برای موقعیت تمام شد','-1':'این برنامه GPS را پشتیبانی نمی‌کند'},
   age=lastFix?Math.round((Date.now()-lastFix)/1000):null;
  $('#gs').textContent=age!=null&&age<12?'متصل':'قطع';
- $('#gd').innerHTML='مجوز: '+PM[ps]+'<br>آخرین خطا: '+ER[gCode]+'<br>حالت: '+(gHi?'دقت بالا (GPS)':'شبکه / دقت کم')+'<br>دقت فعلی: '+(gAcc?fa(Math.round(gAcc))+' متر':'—')+'<br>آخرین موقعیت: '+(age!=null?fa(age)+' ثانیه پیش':'هنوز دریافت نشده')+(gManual?'<br>موقعیت دستی فعال است':'')+'<br><br>اگر در مانیتور خودرو وصل نمی‌شود: ۱) در تنظیمات اندروید، مجوز موقعیت مکانی برنامه را روشن کنید. ۲) بررسی کنید GPS خودرو برای برنامه‌های دیگر (مثل GPS Test) کار می‌کند. ۳) برخی مانیتورها GPS را فقط به نرم‌افزار نقشه خودشان می‌دهند؛ در این صورت از «ثبت موقعیت دستی» استفاده کنید.'}
+ $('#gd').innerHTML='مجوز: '+PM[ps]+'<br>آخرین خطا: '+ER[gCode]+'<br>حالت: '+(gHi?'دقت بالا (GPS)':'شبکه / دقت کم')+'<br>دقت فعلی: '+(gAcc?fa(Math.round(gAcc))+' متر':'—')+'<br>آخرین موقعیت: '+(age!=null?fa(age)+' ثانیه پیش':'هنوز دریافت نشده')+(gManual?'<br>موقعیت دستی فعال است':'')+'<br>دریافت‌ها (watch/poll/native): '+nW+'/'+nP+'/'+nC+'<br>افزونهٔ بومی GPS: '+(capG()?gNat:'در این APK نیست')+'<br>فاصلهٔ میانگین دریافت: '+(gGap?(gGap/1000).toFixed(1)+' ثانیه':'—')+'<br><br>اگر در مانیتور خودرو وصل نمی‌شود: ۱) در تنظیمات اندروید، مجوز موقعیت مکانی برنامه را روشن کنید. ۲) بررسی کنید GPS خودرو برای برنامه‌های دیگر (مثل GPS Test) کار می‌کند. ۳) برخی مانیتورها GPS را فقط به نرم‌افزار نقشه خودشان می‌دهند؛ در این صورت از «ثبت موقعیت دستی» استفاده کنید.'}
 setInterval(()=>{if($('#set').style.display=='block')updGd()},2000);
-$('#gr').onclick=()=>{gHi=1;gCode=0;startGps();toast('در حال تلاش برای اتصال GPS…')};
+$('#gr').onclick=()=>{gTries=0;gDen=0;gCode=0;startGps();capW=null;startNative();toast('در حال تلاش برای اتصال GPS…')};
 $('#gm').onclick=()=>{const c=map.getCenter();gManual=1;onPos({coords:{latitude:c.lat,longitude:c.lng,accuracy:50,speed:null,heading:null},manual:1});toast('موقعیت دستی ثبت شد')};
 $('#zt').onchange=e=>{S.zt=e.target.checked?1:0;save();drawZones()};
 $('#za').onchange=e=>{S.za=e.target.checked?1:0;save();drawZones()};
@@ -799,7 +945,7 @@ $('#fi').onchange=e=>{$('#fi').removeAttribute('capture');
  const f=e.target.files[0];e.target.value='';if(!f)return;
  if(f.size>1e7){toast('فایل بزرگ است (حداکثر ۱۰ مگابایت)');return}
  const fr=new FileReader();fr.onload=()=>{C[fk]=fr.result;save();renderClips()};fr.readAsDataURL(f)};
-$('#lm').innerHTML=[['normal','نقشه'],['off','آفلاین'],['sat','ماهواره'],['topo','پستی‌بلندی']].map(a=>'<button data-l="'+a[0]+'">'+a[1]+'</button>').join('');
+$('#lm').innerHTML=[['normal','نقشه'],['sat','ماهواره'],['topo','پستی‌بلندی']].map(a=>'<button data-l="'+a[0]+'">'+a[1]+'</button>').join('');
 function holdZoom(btn,dir){let t0=0,iv=0,held=0;
  btn.addEventListener('pointerdown',e=>{e.preventDefault();held=0;t0=setTimeout(()=>{held=1;map._stop();map._moveStart(true,false);
   iv=setInterval(()=>map._move(map.getCenter(),Math.max(2,Math.min(19,map.getZoom()+dir*.12)),{pinch:true,round:false}),40)},350)});
